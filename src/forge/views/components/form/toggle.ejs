@@ -1,0 +1,19 @@
+<%
+  // Optional props
+  const { classname, id, name, checked, hideLabel } = locals;
+%>
+
+<div class="<%= classname ? classname + ' ' : '' %>">
+  <label class="inline-flex items-center cursor-pointer">
+    <input
+      type="checkbox"
+      value=""
+      class="sr-only peer"
+      <%= id ? `id=${id}` : '' %>
+      <%= name ? `name=${name}` : '' %>
+      <%= checked ? 'checked' : '' %>
+    />
+    <div class="relative w-15 h-8 bg-neutral-500 peer-focus-visible:outline-none peer-focus-visible:ring-2 peer-focus-visible:ring-offset-2 peer-focus-visible:ring-amber-500 dark:peer-focus-visible:ring-amber-800 rounded-full peer dark:bg-amber-950 peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-7 after:w-7 after:transition-all dark:border-gray-600 peer-checked:bg-amber-600 dark:peer-checked:bg-amber-600"></div>
+    <span class="<%= hideLabel ? 'sr-only' : '' %>ms-3 ml-3"><%= label %></span>
+  </label>
+</div>
