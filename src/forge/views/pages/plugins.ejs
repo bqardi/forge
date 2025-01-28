@@ -1,0 +1,32 @@
+<div>
+  <div class="flex justify-between items-start">
+    <div>
+      <h1 class="page-title">Plugins</h1>
+      <p>This is the plugins <%= layoutType %></p>
+    </div>
+    <a
+      class="bg-amber-700 hover:bg-amber-800 text-white py-2 px-5 rounded-md"
+      href="/forge/plugins/browse"
+    >Add new plugin</a>
+  </div>
+
+  <div class="mt-5">
+    <%-
+      include('../components/table', {
+        data: data.plugins.map((plugin) => {
+          return {
+            ...plugin,
+            url: `/forge/plugins/${plugin.id}`,
+            createdAt: new Date(plugin.createdAt).toLocaleDateString()
+          }
+        }),
+        columns: [
+          {name: "Title", key: "title", link: "url"},
+          {name: "Identifier", key: "identifier"},
+          {name: "Description", key: "description"},
+          {name: "Date created", key: "createdAt"},
+        ]
+      })
+    %>
+  </div>
+</div>

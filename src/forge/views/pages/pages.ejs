@@ -1,0 +1,33 @@
+<div>
+  <div class="flex justify-between items-start">
+    <div>
+      <h1 class="page-title">Pages</h1>
+      <p>This is the pages <%= global.BASE_URL %></p>
+    </div>
+    <a
+      class="bg-amber-700 hover:bg-amber-800 text-white py-2 px-5 rounded-md"
+      href="/forge/pages/create"
+    >New page</a>
+  </div>
+
+  <div class="mt-5">
+    <%-
+      include("../components/table", {
+        data: data.pages.map((page) => {
+          return {
+            ...page,
+            url: `/forge/pages/${page.id}`,
+            authorName: data.user.username,
+            createdAt: new Date(page.createdAt).toLocaleDateString()
+          }
+        }),
+        columns: [
+          {name: "Title", key: "title", link: "url"},
+          {name: "Link", key: "slug"},
+          {name: "Author", key: "authorName"},
+          {name: "Date created", key: "createdAt"},
+        ]
+      })
+    %>
+  </div>
+</div>

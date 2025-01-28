@@ -1,0 +1,7 @@
+{
+  "name": "base-theme",
+  "version": "1.0.0",
+  "description": "Base theme for the project",
+  "author": "Author Name",
+  "entry": "index.js"
+}

@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Dashboard</title>
+    <link rel="stylesheet" href="/css/style.css" />
+  </head>
+  <body>
+    <% if (layoutType === "login") { %>
+    <%- body %>
+    <% } else { %>
+    <div class="grid grid-cols-[240px_1fr] grid-rows-[64px_1fr] h-screen">
+      <%- include("partials/topbar") %> <%- include("partials/menu") %>
+      <div class="relative overflow-y-auto bg-zinc-100">
+        <%- include("partials/content", { layoutType }) %>
+      </div>
+    </div>
+    <% } %>
+    <script type="module" src="/js/app.js"></script>
+  </body>
+</html>

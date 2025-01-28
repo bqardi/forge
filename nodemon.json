@@ -1,0 +1,12 @@
+{
+  "watch": [
+    "src/models",
+    "src/routes",
+    "src/services",
+    "src/utils",
+    "src/app.js",
+    "src/server.js"
+  ],
+  "ext": "js,json,html,ejs",
+  "exec": "node src/server.js"
+}

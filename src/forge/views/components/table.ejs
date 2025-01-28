@@ -1,0 +1,27 @@
+<table class="min-w-full bg-white">
+  <thead>
+    <tr>
+      <% columns.forEach(column => { %>
+      <th class="text-left py-2 px-4 border-b border-gray-200"><%= column.name %></th>
+      <% }) %>
+    </tr>
+  </thead>
+  <tbody>
+    <% data.forEach(item => { %>
+    <tr>
+      <% columns.forEach(column => { %>
+      <td class="py-2 px-4 border-b border-gray-200">
+        <% if (column.link) { %>
+          <a
+            href="<%= item[column.link] %>"
+            class="link"
+          ><%= item[column.key] %></a>
+        <% } else { %>
+          <%= item[column.key] %>
+        <% } %>
+      </td>
+      <% }) %>
+    </tr>
+    <% }) %>
+  </tbody>
+</table>

@@ -1,0 +1,13 @@
+<%
+  // Optional props
+  const { onclick, value, form, identifier, name } = locals;
+%>
+
+<button
+  class="bg-amber-700 hover:bg-amber-800 text-white py-2 px-5 rounded-md cursor-pointer"
+  <%= name ? `name=${name}` : '' %>
+  <%= value ? `value=${value}` : '' %>
+  <%= form ? `form=${form}` : '' %>
+>
+  <%= label %>
+</button>

@@ -1,0 +1,18 @@
+<div>
+  <h2 class="text-xl">Publish Post</h2>
+  <p class="mb-2">
+    Lorem ipsum, dolor sit amet consectetur adipisicing elit. Natus ratione
+    cumque assumenda vero omnis ipsa necessitatibus molestias veritatis facere
+    dicta!
+  </p>
+  <div class="flex justify-end">
+    <%-
+      include("../components/button", {
+        label: id === "create" ? "Create" : "Update",
+        name: "publisher",
+        value: id,
+        form: `form-${type}`,
+      })
+    %>
+  </div>
+</div>

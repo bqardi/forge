@@ -1,0 +1,35 @@
+{
+  "name": "forge",
+  "version": "1.0.0",
+  "main": "src/server.js",
+  "type": "module",
+  "scripts": {
+    "dev": "concurrently \"nodemon\" \"npm run dev:view\" \"npm run browser-sync\"",
+    "dev:view": "NODE_ENV=development npm --prefix src/forge run dev",
+    "browser-sync": "NODE_ENV=development browser-sync start -p localhost:3210 -f \"src/forge/views/**/*.ejs, src/forge/views/**/*.html, src/forge/assets/*.css\" --no-notify --no-open",
+    "db:adduser": "NODE_ENV=development node src/utils/scripts/addUser.js",
+    "db:deleteuser": "NODE_ENV=development node src/utils/scripts/deleteUser.js",
+    "start": "NODE_ENV=production node src/server.js",
+    "build": "NODE_ENV=production npm --prefix src/forge run build"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "dependencies": {
+    "bcrypt": "^5.1.1",
+    "cookie-parser": "^1.4.7",
+    "dotenv": "^16.4.7",
+    "ejs": "^3.1.10",
+    "express": "^4.21.2",
+    "express-ejs-layouts": "^2.5.1",
+    "jsonwebtoken": "^9.0.2",
+    "sequelize": "^6.37.5",
+    "sqlite3": "^5.1.7"
+  },
+  "devDependencies": {
+    "browser-sync": "^3.0.3",
+    "concurrently": "^9.1.2",
+    "nodemon": "^3.1.9"
+  }
+}

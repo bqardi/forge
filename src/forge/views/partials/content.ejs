@@ -1,0 +1,50 @@
+<% if (layoutType === "dashboard") { %>
+  <div class="p-5">
+    <%- body %>
+  </div>
+<% } %>
+
+<% if (layoutType === "overview") { %>
+  <div class="p-5">
+    <%- body %>
+  </div>
+<% } %>
+
+<% if (layoutType === "media") { %>
+  <div class="p-5">
+    <%- body %>
+  </div>
+<% } %>
+
+<% if (layoutType === "appearance") { %>
+  <div class="p-5">
+    <%- body %>
+  </div>
+<% } %>
+
+<% if (layoutType === "grid") { %>
+  <div class="grid grid-cols-1 md:grid-cols-3 gap-3.5 p-5">
+    <%- body %>
+  </div>
+<% } %>
+
+<% if (layoutType === "plugins") { %>
+  <div class="p-5">
+    <%- body %>
+  </div>
+<% } %>
+
+<% if (layoutType === "settings") { %>
+  <div class="p-5">
+    <%- body %>
+  </div>
+<% } %>
+
+<% if (layoutType === "single") { %>
+  <div class="grid grid-cols-[1fr_240px] p-5">
+    <%- body %>
+    <aside class="sticky top-5 right-5 self-start w-[240px] px-5">
+      <%- include("publisher", { type, id, data }) %>
+    </aside>
+  </div>
+<% } %>

@@ -1,0 +1,23 @@
+<div>
+  <h1 class="page-title">Users</h1>
+  <p>This is the users <%= layoutType %></p>
+  <div class="mt-5">
+    <%- 
+      include("../components/table", {
+        data: users.map((user) => {
+          const details = user.dataValues;
+          return {
+            ...details,
+            url: `/forge/users/${details.id}`,
+            emailurl: `mailto:${details.email}`,
+            createdAt: new Date(details.createdAt).toLocaleDateString()
+          }
+        }),
+        columns: [
+          {name: "Username", key: "username", link: "url"},
+          {name: "Email", key: "email", link: "emailurl"},
+          {name: "Date created", key: "createdAt"},
+        ]
+      })
+    %>
+</div>

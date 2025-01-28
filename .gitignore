@@ -1,0 +1,4 @@
+node_modules
+.env.local
+src/forge/assets/css/*
+src/forge/assets/js/*

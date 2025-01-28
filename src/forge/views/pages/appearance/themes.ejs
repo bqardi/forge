@@ -1,0 +1,14 @@
+<div class="md:col-span-3">
+  <h1 class="page-title">Themes</h1>
+  <p>This is the themes <%= layoutType %></p>
+</div>
+
+<% data.themes.forEach((theme) => { %>
+  <div class="border shadow rounded p-5">
+    <h2><%= theme.name %></h2>
+    <button
+      class="<%= theme.isActive ? 'active ' : '' %>bg-green-600 hover:bg-green-500 [&.active]:bg-red-600 [&.active]:hover:bg-red-500 text-white py-2 px-5 rounded-md cursor-pointer"
+      data-theme="<%= theme.name %>"
+    ><%= theme.isActive ? 'Deactivate' : 'Activate' %></button>
+  </div>
+<% }); %>

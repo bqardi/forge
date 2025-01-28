@@ -1,0 +1,47 @@
+<%
+  const contentManagement = [
+    { href: "/forge/posts", label: "Posts", icon: "posts", page: "posts" },
+    { href: "/forge/pages", label: "Pages", icon: "pages", page: "pages" },
+    { href: "/forge/media", label: "Media", icon: "media", page: "media" },
+  ];
+  const configuration = [
+    { href: "/forge/appearance", label: "Appearance", icon: "appearance", page: "appearance" },
+    { href: "/forge/appearance/themes", label: "Themes", icon: "themes", page: "themes" },
+    { href: "/forge/plugins", label: "Plugins", icon: "plugins", page: "plugins" },
+    { href: "/forge/users", label: "Users", icon: "users", page: "users" },
+    { href: "/forge/settings", label: "Settings", icon: "settings", page: "settings" },
+  ];
+%>
+
+<div class="bg-zinc-800 text-white py-5 px-2">
+  <a
+    class="flex items-center gap-2 mb-8 text-zinc-400 hover:text-white hover:bg-zinc-700 px-3.5 py-2 rounded-md [&.active]:cursor-default [&.active]:text-white [&.active]:bg-amber-800 <%= page === "dashboard" && "active" %>"
+    href="/forge"
+    ><%- include("../components/icon", {icon: "dashboard"}) %><%= "Dashboard" %></a
+  >
+  <h2 class="text-lg font-semibold px-3 mb-5">Content management</h2>
+  <ul class="mb-8 flex flex-col gap-1.5">
+    <% for (const link of contentManagement) { %>
+    <li>
+      <a
+        class="flex items-center gap-2 text-zinc-400 hover:text-white hover:bg-zinc-700 px-3.5 py-2 rounded-md [&.active]:cursor-default [&.active]:text-white [&.active]:bg-amber-800 <%= link.page === page && "active" %>"
+        href="<%= link.href %>"
+        ><%- include("../components/icon", {icon: link.icon}) %><%= link.label %></a
+      >
+    </li>
+    <% } %>
+  </ul>
+
+  <h2 class="text-lg font-semibold px-3 mb-5">Configuration</h2>
+  <ul class="flex flex-col gap-1.5">
+    <% for (const link of configuration) { %>
+    <li>
+      <a
+        class="flex items-center gap-2 text-zinc-400 hover:text-white hover:bg-zinc-700 px-3.5 py-2 rounded-md [&.active]:cursor-default [&.active]:text-white [&.active]:bg-amber-800 <%= link.page === page && "active" %>"
+        href="<%= link.href %>"
+        ><%- include("../components/icon", {icon: link.icon}) %><%= link.label %></a
+      >
+    </li>
+    <% } %>
+  </ul>
+</div>

@@ -1,0 +1,67 @@
+<%
+  const createdAt = new Date(data.createdAt).toLocaleDateString();
+%>
+
+<div>
+  <h1 class="page-title">Page</h1>
+  <p>This is a single page <%= layoutType %></p>
+
+  <form class="mt-5" id="form-page">
+    <%-
+      include("../components/form/input", {
+        type: "hidden",
+        id: "id",
+        name: "id",
+        value: data.id,
+      })
+    %>
+    <%-
+      include("../components/form/input", {
+        type: "hidden",
+        id: "authorId",
+        name: "authorId",
+        value: data.user.id,
+      })
+    %>
+    <%-
+      include("../components/form/input", {
+        classname: "mb-4",
+        label: "Title",
+        type: "text",
+        id: "title",
+        name: "title",
+        value: data.title || "",
+      })
+    %>
+    <%-
+      include("../components/form/input", {
+        classname: "mb-4",
+        label: "Type",
+        type: "text",
+        id: "type",
+        name: "type",
+        value: data.type || "",
+      })
+    %>
+    <%-
+      include("../components/form/input", {
+        classname: "mb-4",
+        label: "Slug",
+        type: "text",
+        id: "slug",
+        name: "slug",
+        value: data.slug || "",
+      })
+    %>
+    <%-
+      include("../components/form/input", {
+        classname: "mb-4",
+        label: "Link",
+        type: "url",
+        id: "link",
+        name: "link",
+        value: global.BASE_URL + data.slug,
+      })
+    %>
+  </form>
+</div>

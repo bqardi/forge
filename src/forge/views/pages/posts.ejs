@@ -1,0 +1,33 @@
+<div>
+  <div class="flex justify-between items-start">
+    <div>
+      <h1 class="page-title">Posts</h1>
+      <p>This is the posts <%= layoutType %></p>
+    </div>
+    <a
+      class="bg-amber-700 hover:bg-amber-800 text-white py-2 px-5 rounded-md"
+      href="/forge/posts/create"
+    >New post</a>
+  </div>
+
+  <div class="mt-5">
+    <%-
+      include('../components/table', {
+        data: data.posts.map((post) => {
+          return {
+            ...post,
+            url: `/forge/posts/${post.id}`,
+            authorName: data.user.username,
+            createdAt: new Date(post.createdAt).toLocaleDateString()
+          }
+        }),
+        columns: [
+          {name: "Title", key: "title", link: "url"},
+          {name: "Link", key: "slug"},
+          {name: "Author", key: "authorName"},
+          {name: "Date created", key: "createdAt"},
+        ]
+      })
+    %>
+  </div>
+</div>

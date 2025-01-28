@@ -1,0 +1,33 @@
+<div class="grid place-content-center h-screen">
+  <h1 class="text-3xl font-semibold"><%= title %></h1>
+  <p class="text-lg mb-3.5"><%= content %></p>
+  <form class="flex flex-col gap-3.5 min-w-[320px]" data-forge-login-form>
+    <%-
+      include("./components/form/input", {
+        classname: "mb-2",
+        label: "Enter username",
+        type: "text",
+        id: "username",
+        name: "username",
+        placeholder: "Username",
+        required: true
+      })
+    %>
+    <%-
+      include("./components/form/input-password", {
+        classname: "mb-2",
+        label: "Enter password",
+        id: "password",
+        name: "password",
+        placeholder: "Password",
+        required: true
+      })
+    %>
+    <%-
+      include("./components/button", {
+        type: "submit",
+        label: "Login",
+      })
+    %>
+  </form>
+</div>

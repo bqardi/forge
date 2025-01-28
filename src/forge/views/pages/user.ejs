@@ -1,0 +1,27 @@
+<%
+  const createdAt = new Date(data.createdAt).toLocaleDateString();
+%>
+
+<div>
+  <h1 class="page-title">User (<%= data.username %>)</h1>
+  <p>Created at <%= createdAt %></p>
+  
+  <form class="mt-5" id="form-user">
+    <%-
+      include("../components/form/input", {
+        type: "hidden",
+        id: "id",
+        name: "id",
+        value: data.id,
+      })
+    %>
+    <%-
+      include("../components/form/input-password", {
+        classname: "mb-4",
+        label: "Change password",
+        id: "password",
+        name: "password",
+      })
+    %>
+  </form>
+</div>

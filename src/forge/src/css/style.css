@@ -1,0 +1,9 @@
+@import "tailwindcss";
+
+.link {
+  @apply text-amber-800 hover:text-amber-700;
+}
+
+.page-title {
+  @apply text-3xl font-semibold;
+}

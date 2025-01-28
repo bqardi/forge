@@ -1,0 +1,7 @@
+{
+  "name": "my-theme",
+  "version": "1.0.0",
+  "description": "My theme for the project",
+  "author": "Author Name",
+  "entry": "functions.js"
+}
