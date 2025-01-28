@@ -1,6 +1,7 @@
 class HookManager {
   constructor() {
-    console.log("HookManager instance created");
+    process.env.LOG_HOOK_EVENTS === "true" &&
+      console.log("HookManager instance created");
     this.hooks = {};
   }
 
@@ -17,7 +18,6 @@ class HookManager {
       for (const { callback } of this.hooks[hookName]) {
         try {
           if (callback.constructor.name === "AsyncFunction") {
-            console.log(args);
             await callback(...args);
           } else {
             callback(...args);

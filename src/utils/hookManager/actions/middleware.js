@@ -1,11 +1,11 @@
 export function beforeMiddleware() {
-  console.log("Before Middleware");
+  process.env.LOG_HOOK_EVENTS === "true" && console.log("Before Middleware");
 }
 
 export function onMiddleware(type) {
-  console.log("On Middleware:", type);
+  process.env.LOG_HOOK_EVENTS === "true" && console.log("On Middleware:", type);
 }
 
 export function afterMiddleware() {
-  console.log("After Middleware");
+  process.env.LOG_HOOK_EVENTS === "true" && console.log("After Middleware");
 }

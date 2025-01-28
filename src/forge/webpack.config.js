@@ -31,4 +31,5 @@ export default {
     compress: true,
     port: 9000,
   },
+  stats: "minimal",
 };

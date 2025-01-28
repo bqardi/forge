@@ -1,11 +1,12 @@
 export function beforeSystemInit() {
-  console.log("Before System Init");
+  process.env.LOG_HOOK_EVENTS === "true" && console.log("Before System Init");
 }
 
 export function onSystemInit(type) {
-  console.log("On System Init:", type);
+  process.env.LOG_HOOK_EVENTS === "true" &&
+    console.log("On System Init:", type);
 }
 
 export function afterSystemInit() {
-  console.log("After System Init");
+  process.env.LOG_HOOK_EVENTS === "true" && console.log("After System Init");
 }

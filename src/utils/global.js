@@ -1,7 +1,9 @@
 import path from "path";
 import { fileURLToPath, URL } from "url";
 import dotenv from "dotenv";
-dotenv.config({ path: [".env.local", ".env"] });
+dotenv.config({
+  path: [".env.local", ".env"],
+});
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const src = path.join(__dirname, "..");

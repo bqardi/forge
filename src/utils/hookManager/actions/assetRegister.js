@@ -1,11 +1,12 @@
 export function beforeAssetRegister() {
-  console.log("Before AssetRegister");
+  process.env.LOG_HOOK_EVENTS === "true" && console.log("Before AssetRegister");
 }
 
 export function onAssetRegister(type) {
-  console.log("On AssetRegister:", type);
+  process.env.LOG_HOOK_EVENTS === "true" &&
+    console.log("On AssetRegister:", type);
 }
 
 export function afterAssetRegister() {
-  console.log("After AssetRegister");
+  process.env.LOG_HOOK_EVENTS === "true" && console.log("After AssetRegister");
 }
