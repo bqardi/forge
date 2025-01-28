@@ -56,16 +56,25 @@ export async function getCurrentThemeConfig(themeName) {
 export async function getThemesConfig() {
   const activeTheme = await getCurrentThemeName();
   const themeFolders = fs.readdirSync(config.THEMES_PATH);
-  const themes = themeFolders.map((theme) => {
+  return themeFolders.map((theme) => {
     const themePath = path.join(config.THEMES_PATH, theme, "theme.config.json");
     const themeData = JSON.parse(fs.readFileSync(themePath, "utf8"));
+    const rating = getThemeRating(theme);
     return {
       ...themeData,
       name: theme,
       title: themeData.title || prettifySlug(theme),
       isActive: activeTheme === theme,
+      rating,
     };
   });
+}
 
-  return themes;
+export function getThemeRating(themeName) {
+  const dummyList = {
+    "base-theme": 5,
+    "my-theme": 3,
+  };
+
+  return dummyList[themeName];
 }

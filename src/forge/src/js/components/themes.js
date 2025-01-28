@@ -1,16 +1,18 @@
 (function () {
-  const themeButtons = document.querySelectorAll("[data-theme]");
-  if (!themeButtons) return;
-  themeButtons.forEach((button) => {
-    button.addEventListener("click", activateTheme);
+  const themeToggles = document.querySelectorAll("[data-theme]");
+  if (!themeToggles) return;
+  themeToggles.forEach((toggle) => {
+    toggle.addEventListener("click", activateTheme);
   });
 })();
 
-async function activateTheme(e) {
-  e.preventDefault();
+let timeout = null;
 
-  const currentButton = e.currentTarget;
-  const isActive = currentButton.classList.contains("active");
+async function activateTheme(e) {
+  if (e.target.tagName !== "INPUT") return;
+
+  const currentToggle = e.currentTarget;
+  const checkbox = e.target;
 
   const response = await fetch("/api/activate-theme", {
     method: "POST",
@@ -18,13 +20,16 @@ async function activateTheme(e) {
       "Content-Type": "application/json",
     },
     body: JSON.stringify({
-      theme: currentButton.dataset.theme,
-      isActive,
+      theme: currentToggle.dataset.theme,
+      isActive: !checkbox.checked,
     }),
   });
 
   if (response.ok) {
-    window.location.href = "/forge/appearance/themes";
+    if (timeout) clearTimeout(timeout);
+    timeout = setTimeout(() => {
+      window.location.href = "/forge/appearance/themes";
+    }, 150);
   } else {
     alert("Attempt to activate theme failed");
     console.log(response);

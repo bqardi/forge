@@ -1,14 +1,33 @@
-<div class="md:col-span-3">
+<div class="lg:col-span-2 xl:col-span-3">
   <h1 class="page-title">Themes</h1>
   <p>This is the themes <%= layoutType %></p>
 </div>
 
-<% data.themes.forEach((theme) => { %>
-  <div class="border shadow rounded p-5">
-    <h2><%= theme.name %></h2>
-    <button
-      class="<%= theme.isActive ? 'active ' : '' %>bg-green-600 hover:bg-green-500 [&.active]:bg-red-600 [&.active]:hover:bg-red-500 text-white py-2 px-5 rounded-md cursor-pointer"
-      data-theme="<%= theme.name %>"
-    ><%= theme.isActive ? 'Deactivate' : 'Activate' %></button>
+<% data.themes.forEach((theme, index) => { %>
+  <div class="border shadow-md rounded-md grid grid-cols-[2fr_1fr]">
+    <div class="p-5">
+      <div class="flex items-start justify-between gap-3.5">
+        <div>
+          <h2 class="text-xl font-semibold"><%= theme.title %></h2>
+        <p class="text-zinc-700 mb-3"><%= theme.description %></p>
+        </div>
+        <%- include('../../components/form/toggle', {
+          label: 'Edit',
+          hideLabel: true,
+          selector: `theme=${theme.name}`,
+          checked: theme.isActive,
+        }) %>
+      </div>
+      <%- include('../../components/rating', {
+        value: theme.rating,
+      }) %>
+    </div>
+    <div>
+      <img
+        src="https://picsum.photos/400/280/?random=<%= index %>"
+        alt="<%= theme.title %> theme"
+        class="object-cover w-full h-full"
+      >
+    </div>
   </div>
 <% }); %>

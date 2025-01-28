@@ -1,0 +1,7 @@
+{
+  "name": "lala-theme",
+  "version": "1.0.0",
+  "description": "A simple theme for Lala",
+  "author": "Lala",
+  "entry": "functions.js"
+}
