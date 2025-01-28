@@ -1,10 +1,11 @@
 <%
   // Optional props
-  const { onclick, value, form, identifier, name, selector, classname } = locals;
+  const { onclick, value, form, id, name, selector, classname } = locals;
 %>
 
 <button
   class="<%= classname ? classname + ' ' : '' %>w-12 h-12 grid place-content-center rounded-full cursor-pointer"
+  <%= id ? `id=${id}` : '' %>
   <%= name ? `name=${name}` : '' %>
   <%= value ? `value=${value}` : '' %>
   <%= form ? `form=${form}` : '' %>
