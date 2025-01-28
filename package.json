@@ -5,12 +5,12 @@
   "type": "module",
   "scripts": {
     "dev": "concurrently \"nodemon\" \"npm run dev:view\" \"npm run browser-sync\"",
-    "dev:view": "NODE_ENV=development npm --prefix src/forge run dev",
-    "browser-sync": "NODE_ENV=development browser-sync start -p localhost:3210 -f \"src/forge/views/**/*.ejs, src/forge/views/**/*.html, src/forge/assets/*.css\" --no-notify --no-open",
-    "db:adduser": "NODE_ENV=development node src/utils/scripts/addUser.js",
-    "db:deleteuser": "NODE_ENV=development node src/utils/scripts/deleteUser.js",
-    "start": "NODE_ENV=production node src/server.js",
-    "build": "NODE_ENV=production npm --prefix src/forge run build"
+    "dev:view": "npm --prefix src/forge run dev",
+    "browser-sync": "browser-sync start -p localhost:3210 -f \"src/forge/views/**/*.ejs, src/forge/views/**/*.html, src/forge/assets/*.css\" --no-notify --no-open",
+    "db:adduser": "node src/utils/scripts/addUser.js",
+    "db:deleteuser": "node src/utils/scripts/deleteUser.js",
+    "start": "node src/server.js",
+    "build": "npm --prefix src/forge run build"
   },
   "keywords": [],
   "author": "",

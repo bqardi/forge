@@ -1,15 +1,10 @@
 import "./utils/global.js";
+import "./utils/themeHandler.js";
 import app from "./app.js";
 import sequelize from "./config/database.js";
 import { event, hook } from "./utils/hookManager/index.js";
 import { databaseExists } from "./utils/scripts/firstTimeSetup.js";
 import { addUser } from "./utils/scripts/addUser.js";
-import dotenv from "dotenv";
-
-dotenv.config();
-
-const PORT = process.env.SERVER_PORT || 3210;
-const isProduction = process.env.NODE_ENV === "production";
 
 (async function () {
   const dbExists = databaseExists();
@@ -30,12 +25,11 @@ const isProduction = process.env.NODE_ENV === "production";
       });
     }
 
+    const PORT = process.env.SERVER_PORT || 3210;
+
     app.listen(PORT, () => {
       console.log(`\nServer is running on localhost:${PORT}`);
       console.log("Open in browser at http://localhost:3000 (proxied)");
-      console.log(
-        `Environment: ${isProduction ? "production" : "development"}\n`
-      );
       hook.action(event.onSystemInit, "server");
     });
 
