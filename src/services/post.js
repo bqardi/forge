@@ -1,5 +1,5 @@
 import Post from "../models/Post.js";
-import { generateSlug } from "../utils/generate-slug.js";
+import { generateSlug } from "../utils/stringHandler.js";
 
 export const getPosts = async () => {
   try {

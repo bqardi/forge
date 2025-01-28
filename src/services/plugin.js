@@ -1,5 +1,5 @@
 import Plugins from "../models/Plugin.js";
-import { generateSlug } from "../utils/generate-slug.js";
+import { generateSlug } from "../utils/stringHandler.js";
 
 export const getPlugins = async () => {
   try {

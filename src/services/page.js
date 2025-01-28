@@ -1,5 +1,5 @@
 import Page from "../models/Page.js";
-import { generateSlug } from "../utils/generate-slug.js";
+import { generateSlug } from "../utils/stringHandler.js";
 
 export const getPages = async () => {
   try {
