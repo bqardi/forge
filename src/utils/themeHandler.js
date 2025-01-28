@@ -2,6 +2,7 @@ import fs from "fs";
 import path from "path";
 import { getSetting } from "../services/setting.js";
 import { config } from "./global.js";
+import { prettifySlug } from "./stringHandler.js";
 
 export async function getCurrentThemeName() {
   const activeTheme = await getSetting("active_theme");
@@ -61,6 +62,7 @@ export async function getThemesConfig() {
     return {
       ...themeData,
       name: theme,
+      title: themeData.title || prettifySlug(theme),
       isActive: activeTheme === theme,
     };
   });
