@@ -21,9 +21,8 @@ const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
 const app = express();
 
-hook.action(event.beforeMiddleware);
-
 // Middlewares
+hook.action(event.beforeMiddleware);
 app.use(express.json());
 hook.action(event.onMiddleware, "json");
 app.use(cookieParser());
@@ -36,7 +35,6 @@ app.use(filemap);
 hook.action(event.onMiddleware, "filemap");
 app.use(setLocals);
 hook.action(event.onMiddleware, "setLocals");
-
 hook.action(event.afterMiddleware);
 
 // EJS views
@@ -48,7 +46,6 @@ app.use(express.static(path.join(__dirname, "forge", "assets")));
 
 // Routes
 hook.action(event.beforeRouteBackend);
-
 app.use("/forge", forge);
 hook.action(event.onRouteBackend, "forge");
 app.use("/forge/pages", pages);
@@ -67,14 +64,11 @@ app.use("/login", login);
 hook.action(event.onRouteBackend, "login");
 app.use("/api", api);
 hook.action(event.onRouteBackend, "api");
-
 hook.action(event.afterRouteBackend);
 
 hook.action(event.beforeRouteFrontend);
-
 app.use("/", frontendPages);
 hook.action(event.onRouteFrontend, "forge");
-
 hook.action(event.afterRouteFrontend);
 
 export default app;
