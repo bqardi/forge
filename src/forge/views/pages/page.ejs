@@ -54,15 +54,14 @@
         })
       %>
     </div>
-    <%= data.types %>
     <%-
-      include("../components/form/input", {
+      include("../components/form/select", {
         classname: "mb-4",
         label: "Type",
-        type: "text",
         id: "type",
         name: "type",
-        value: data.type || "",
+        values: data.types || [],
+        selected: data.type || "",
       })
     %>
   </form>

@@ -22,7 +22,10 @@ export const getPage = async (id) => {
     return {
       ...page.dataValues,
       // TODO: Fetch page types from database
-      types: ["default", "frontpage"],
+      types: [
+        { key: "default", value: "Default" },
+        { key: "frontpage", value: "Frontpage" },
+      ],
     };
   } catch (err) {
     console.error("Failed to fetch page:", err);
