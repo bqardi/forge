@@ -1,7 +1,9 @@
 (function () {
-  const form = document.getElementById("form-page");
+  const page = document.querySelector("[data-page]");
+  const form = page.querySelector("#form-page");
   if (!form) return;
   form.addEventListener("submit", handleSubmit);
+  form.addEventListener("input", (e) => handleChange(e, page));
 })();
 
 async function handleSubmit(e) {
@@ -28,4 +30,12 @@ async function handleSubmit(e) {
   } else {
     alert("Update failed");
   }
+}
+
+function handleChange(e, page) {
+  if (e.target.name !== "slug") return;
+  const anchor = page.querySelector("[data-base-url]");
+  const url = anchor.dataset.baseUrl + e.target.value;
+  anchor.textContent = url;
+  anchor.href = url;
 }

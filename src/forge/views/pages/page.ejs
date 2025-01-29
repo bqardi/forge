@@ -2,9 +2,18 @@
   const createdAt = new Date(data.createdAt).toLocaleDateString();
 %>
 
-<div>
+<div data-page>
   <h1 class="page-title">Page</h1>
   <p>This is a single page <%= layoutType %></p>
+  <p>
+    Link:
+    <a
+      class="link"
+      href="<%= GET_URL(data.slug) %>"
+      target="_blank"
+      data-base-url="<%= GET_URL('/') %>"
+    ><%= GET_URL(data.slug) %></a>
+  </p>
 
   <form class="mt-5" id="form-page">
     <%-
@@ -23,16 +32,29 @@
         value: data.user.id,
       })
     %>
-    <%-
-      include("../components/form/input", {
-        classname: "mb-4",
-        label: "Title",
-        type: "text",
-        id: "title",
-        name: "title",
-        value: data.title || "",
-      })
-    %>
+    <div class="flex max-lg:flex-wrap gap-x-4">
+      <%-
+        include("../components/form/input", {
+          classname: "mb-4 grow basis-2/3",
+          label: "Title",
+          type: "text",
+          id: "title",
+          name: "title",
+          value: data.title || "",
+        })
+      %>
+      <%-
+        include("../components/form/input", {
+          classname: "mb-4 grow basis-1/3",
+          label: "Slug",
+          type: "text",
+          id: "slug",
+          name: "slug",
+          value: data.slug || "",
+        })
+      %>
+    </div>
+    <%= data.types %>
     <%-
       include("../components/form/input", {
         classname: "mb-4",
@@ -41,26 +63,6 @@
         id: "type",
         name: "type",
         value: data.type || "",
-      })
-    %>
-    <%-
-      include("../components/form/input", {
-        classname: "mb-4",
-        label: "Slug",
-        type: "text",
-        id: "slug",
-        name: "slug",
-        value: data.slug || "",
-      })
-    %>
-    <%-
-      include("../components/form/input", {
-        classname: "mb-4",
-        label: "Link",
-        type: "url",
-        id: "link",
-        name: "link",
-        value: global.BASE_URL + data.slug,
       })
     %>
   </form>

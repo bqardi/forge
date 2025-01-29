@@ -14,7 +14,16 @@ export const getPages = async () => {
 export const getPage = async (id) => {
   try {
     const page = await Page.findOne({ where: { id } });
-    return page;
+
+    if (!page) {
+      throw new Error("Page not found");
+    }
+
+    return {
+      ...page.dataValues,
+      // TODO: Fetch page types from database
+      types: ["default", "frontpage"],
+    };
   } catch (err) {
     console.error("Failed to fetch page:", err);
     throw err;

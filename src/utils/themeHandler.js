@@ -70,6 +70,7 @@ export async function getThemesConfig() {
   });
 }
 
+// TODO: Implement theme rating system (data from external API?)
 export function getThemeRating(themeName) {
   const dummyList = {
     "base-theme": 5,

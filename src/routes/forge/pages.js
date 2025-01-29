@@ -30,7 +30,7 @@ router.get("/:id", authenticateToken, async (req, res) => {
     const page = await getPage(id);
     data = {
       ...data,
-      ...page.dataValues,
+      ...page,
     };
   }
 
