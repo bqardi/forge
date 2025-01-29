@@ -1,0 +1,21 @@
+<%
+  // Optional props
+  const { child, isActive, classname } = locals;
+
+  const flexClassname = "flex items-center gap-2 justify-between";
+  const activeConditional = child ? '[&.active]:bg-zinc-600 [&.active]:text-white' : '[&.active]:bg-amber-800 [&.active]:text-white [&.active]:cursor-default';
+  const mainClassname = `${flexClassname} w-full text-zinc-400 hover:text-white hover:bg-zinc-700 px-3.5 py-2 rounded-md ${activeConditional} cursor-pointer`;
+%>
+
+<a
+  class="<%= classname && classname + ' ' %><%= mainClassname %><%= isActive ? ' active' : '' %>"
+  href="<%= href %>"
+  <%= child && `data-child=${href + "/" + child}` %>
+>
+  <span class="<%= flexClassname %>">
+    <%- include("../components/icon", {icon}) %><%= label %>
+  </span>
+  <% if (child) { %>
+    <%- include("../components/icon", {icon: "chevronRight"}) %>
+  <% } %>
+</a>
