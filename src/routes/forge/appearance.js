@@ -19,6 +19,7 @@ router.get("/themes", authenticateToken, async (req, res) => {
     page: "themes",
     parent: {
       title: "Appearance",
+      page: "appearance",
       link: "/forge/appearance",
     },
     layoutType: "grid",

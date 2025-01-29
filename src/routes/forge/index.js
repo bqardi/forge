@@ -17,11 +17,4 @@ router.get("/media", authenticateToken, (req, res) => {
   });
 });
 
-router.get("/settings", authenticateToken, (req, res) => {
-  res.render("pages/settings", {
-    page: "settings",
-    layoutType: "settings",
-  });
-});
-
 export default router;

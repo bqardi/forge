@@ -11,10 +11,11 @@
     { href: "/forge/appearance", label: "Appearance", icon: "appearance", page: "appearance", child: "themes" },
     { href: "/forge/plugins", label: "Plugins", icon: "plugins", page: "plugins" },
     { href: "/forge/users", label: "Users", icon: "users", page: "users" },
-    { href: "/forge/settings", label: "Settings", icon: "settings", page: "settings" },
+    { href: "/forge/settings", label: "Settings", icon: "settings", page: "settings", child: "general" },
   ];
   const childPages = [
     { href: "/forge/appearance/themes", label: "Themes", icon: "themes", page: "themes", parent: "appearance" },
+    { href: "/forge/settings/general", label: "General", icon: "general", page: "general", parent: "settings" },
   ];
 %>
 
@@ -67,8 +68,9 @@
   <a
     class="flex items-center gap-2 mb-8 text-zinc-400 hover:text-white hover:bg-zinc-700 px-3.5 py-2 rounded-md [&.active]:cursor-default [&.active]:text-white [&.active]:bg-amber-800 <%= page === "dashboard" && "active" %>"
     href="/forge"
-    ><%- include("../components/icon", {icon: "dashboard"}) %><%= "Dashboard" %></a
   >
+    <%- include("../components/icon", {icon: "dashboard"}) %><%= "Dashboard" %>
+  </a>
 
   <h2 class="text-lg font-semibold px-3 mb-5" data-title>
     <% if (parent) { %>
@@ -82,15 +84,17 @@
   </h2>
   <ul class="flex flex-col gap-1.5">
     <% for (const link of childPages) { %>
-    <li>
-      <%- include("../partials/menu-button", {
-        child: link.child,
-        isActive: link.page === page,
-        href: link.href,
-        label: link.label,
-        icon: link.icon
-      }) %>
-    </li>
+      <% if (link.parent === parent?.page) { %>
+        <li>
+          <%- include("../partials/menu-button", {
+            child: link.child,
+            isActive: link.page === page,
+            href: link.href,
+            label: link.label,
+            icon: link.icon
+          }) %>
+        </li>
+      <% } %>
     <% } %>
   </ul>
 </div>
