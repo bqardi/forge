@@ -5,7 +5,6 @@ import { getThemesConfig } from "../../utils/themeHandler.js";
 const router = express.Router();
 
 router.get("/", authenticateToken, (req, res) => {
-  // res.redirect("/forge/appearance/themes");
   res.render("pages/appearance", {
     page: "appearance",
     layoutType: "overview",
