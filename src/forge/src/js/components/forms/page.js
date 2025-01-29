@@ -1,5 +1,6 @@
 (function () {
   const page = document.querySelector("[data-page]");
+  if (!page) return;
   const form = page.querySelector("#form-page");
   if (!form) return;
   form.addEventListener("submit", handleSubmit);
