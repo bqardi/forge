@@ -34,6 +34,7 @@ async function handleSubmit(e) {
 }
 
 function handleChange(e, page) {
+  console.log(e.target.name);
   if (e.target.name !== "slug") return;
   const anchor = page.querySelector("[data-base-url]");
   const url = anchor.dataset.baseUrl + e.target.value;

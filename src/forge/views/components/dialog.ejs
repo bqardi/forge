@@ -1,0 +1,30 @@
+<%
+  // Optional props
+  const { title } = locals;
+%>
+
+<dialog class="isolate backdrop:bg-zinc-950/20 backdrop:backdrop-blur-sm bg-zinc-50 shadow-lg group/modal w-full max-w-[1200px] m-auto" data-dialog="<%= id %>">
+  <header class="relative z-20 pt-8 pb-1.5">
+    <h2 class="pl-8 mr-28 text-2xl"><%= title %></h2>
+    <button
+      type="button"
+      class="absolute top-8 right-8 size-12 p-3 hover:text-red-800 transition-colors cursor-pointer"
+      data-modal-close
+    >
+      <svg viewBox="0 0 24 24" fill="currentColor">
+        <path
+          d="M19,6.41L17.59,5L12,10.59L6.41,5L5,6.41L10.59,12L5,17.59L6.41,19L12,13.41L17.59,19L19,17.59L13.41,12L19,6.41Z"
+        ></path>
+      </svg>
+    </button>
+  </header>
+  <%- include(`../partials/dialog-content/${component.partial}`, component.props) %>
+  <footer class="flex justify-end p-8">
+    <%-
+      include("./button", {
+        label: 'Close',
+        selector: `modal-close`,
+      })
+    %>
+  </footer>
+</dialog>

@@ -1,0 +1,17 @@
+<%
+  // Optional props
+  const { } = locals;
+%>
+
+<div data-dialog-content="form-page" class="p-8">
+  <%-
+    include("../../components/form/select", {
+      classname: "mb-4",
+      label: "Type",
+      id: "type",
+      name: "type",
+      values: types || [],
+      selected: type || "",
+    })
+  %>
+</div>

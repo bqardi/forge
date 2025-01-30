@@ -1,21 +1,31 @@
 <%
   const createdAt = new Date(data.createdAt).toLocaleDateString();
+  const formID = "form-page";
 %>
 
-<div data-page>
-  <h1 class="page-title">Page</h1>
-  <p>This is a single page <%= layoutType %></p>
-  <p>
-    Link:
-    <a
-      class="link"
-      href="<%= GET_URL(data.slug) %>"
-      target="_blank"
-      data-base-url="<%= GET_URL('/') %>"
-    ><%= GET_URL(data.slug) %></a>
-  </p>
+<div data-page>  
+  <div class="flex justify-between items-start">
+    <div>
+      <h1 class="page-title">Page</h1>
+      <p>
+        Link:
+        <a
+          class="link"
+          href="<%= GET_URL(data.slug) %>"
+          target="_blank"
+          data-base-url="<%= GET_URL('/') %>"
+        ><%= GET_URL(data.slug) %></a>
+      </p>
+    </div>
+    <%- include('../components/icon-button',{
+      icon: "settings",
+      label: "Settings",
+      classname: "hover:bg-zinc-200",
+      selector: `dialog-trigger="${formID}"`,
+    }) %>
+  </div>
 
-  <form class="mt-5" id="form-page">
+  <form class="mt-5" id="<%= formID %>">
     <%-
       include("../components/form/input", {
         type: "hidden",
@@ -54,15 +64,16 @@
         })
       %>
     </div>
-    <%-
-      include("../components/form/select", {
-        classname: "mb-4",
-        label: "Type",
-        id: "type",
-        name: "type",
-        values: data.types || [],
-        selected: data.type || "",
-      })
-    %>
   </form>
 </div>
+
+<%- include('../components/dialog', {
+  id: formID,
+  title: "Page Settings",
+  component: {
+    partial: "page",
+    props: {
+      ...data,
+    },
+  },
+}) %>
