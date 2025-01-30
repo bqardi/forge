@@ -1,0 +1,38 @@
+<%
+  // Optional props
+  const {  } = locals;
+%>
+
+<div class="group/drawer absolute bottom-0 left-0 right-0 z-40 w-full" data-drawer>  
+  <div
+     id="drawer-<%= formID %>"
+     class="p-4 transition-transform bg-white dark:bg-gray-800 transform-none shadow-xl group-[.active]/drawer:translate-y-0 translate-y-full border-t border-gray-300"
+     tabindex="-1"
+     aria-labelledby="drawer-bottom-label"
+  >
+    <button
+      class="absolute bottom-full left-0 flex items-center gap-2 bg-white py-2 pl-3.5 pr-5 cursor-pointer border-t border-r border-gray-300"
+      type="button"
+      data-trigger
+      aria-controls="drawer-<%= formID %>"
+    >
+      <%- include('./icon', {
+        icon: "chevronUp",
+        classname: "group-[.active]/drawer:rotate-180",
+      }) %>
+      <%= title %>
+    </button>
+    <header>
+      <%- include('./icon-button', {
+        icon: "close",
+        label: "Close drawer",
+        classname: "absolute top-2.5 end-2.5 hover:bg-zinc-200",
+        attributes: [
+          `data-close`,
+          `aria-controls=drawer-${formID}`
+        ],
+      }) %>
+    </header>
+    <%- include(`../partials/component-content/${component.partial}`, component.props) %>
+  </div>
+</div>

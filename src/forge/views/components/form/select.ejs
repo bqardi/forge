@@ -1,6 +1,6 @@
 <%
   // Optional props
-  const { classname, label, selected, values } = locals;
+  const { classname, label, selected, values, attributes = [] } = locals;
 %>
 
 <div class="<%= classname %>">
@@ -8,7 +8,8 @@
   <select
     id="<%= id %>"
     name="<%= name %>"
-    class="mt-1 block w-full px-3 py-2 bg-white border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+    class="mt-1 block w-full px-3 py-2 bg-white border border-gray-300 rounded-md shadow-sm focus-visible:outline-none focus-visible:ring-indigo-500 focus-visible:border-indigo-500 sm:text-sm"
+    <%= attributes.join(' ') %>
   >
     <%- values.map(({key, value}) => `<option value="${key}"${selected === key ? ' selected' : ''}>${value}</option>`).join('') %>
   </select>

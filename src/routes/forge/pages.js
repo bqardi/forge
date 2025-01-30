@@ -39,6 +39,12 @@ router.get("/:id", authenticateToken, async (req, res) => {
     page: "pages",
     layoutType: "single",
     type: "page",
+    formID: "form-page",
+    settings: {
+      active: true,
+      title: "Page settings",
+      partial: "page",
+    },
     data,
   });
 });

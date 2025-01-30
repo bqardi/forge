@@ -12,8 +12,39 @@
     <% } else { %>
     <div class="grid grid-cols-[240px_1fr] grid-rows-[64px_1fr] h-screen">
       <%- include("partials/topbar") %> <%- include("partials/menu") %>
-      <div class="relative overflow-y-auto bg-zinc-100">
-        <%- include("partials/content", { layoutType }) %>
+      <div class="relative overflow-y-hidden bg-zinc-100">
+        <div class="overflow-y-auto">
+          <%- include("partials/content", { layoutType }) %>
+        </div>
+        <% if (locals.settings?.active) { %>
+          <% const { title, partial } = settings; %>
+          <%-
+            include('./components/drawer', {
+              formID,
+              title,
+              component: {
+                partial,
+                props: {
+                  ...data,
+                },
+              },
+            })
+          %>
+        <% } %>
+
+        <%-
+          // TODO: Implement dialog component
+          // include('../components/dialog', {
+          //   id: formID,
+          //   title: "Page Settings",
+          //   component: {
+          //     partial: "page",
+          //     props: {
+          //       ...data,
+          //     },
+          //   },
+          // })
+        %>
       </div>
     </div>
     <% } %>

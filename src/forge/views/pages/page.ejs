@@ -1,6 +1,5 @@
 <%
   const createdAt = new Date(data.createdAt).toLocaleDateString();
-  const formID = "form-page";
 %>
 
 <div data-page>  
@@ -21,7 +20,9 @@
       icon: "settings",
       label: "Settings",
       classname: "hover:bg-zinc-200",
-      selector: `dialog-trigger="${formID}"`,
+      attributes: [
+        `data-dialog-trigger=${formID}`,
+      ],
     }) %>
   </div>
 
@@ -66,14 +67,3 @@
     </div>
   </form>
 </div>
-
-<%- include('../components/dialog', {
-  id: formID,
-  title: "Page Settings",
-  component: {
-    partial: "page",
-    props: {
-      ...data,
-    },
-  },
-}) %>
