@@ -1,6 +1,6 @@
 <%
   // Optional props
-  const { onclick, value, form, id, name, selector, classname } = locals;
+  const { onclick, value, form, id, name, attributes = [], classname } = locals;
 %>
 
 <button
@@ -9,10 +9,10 @@
   <%= name ? `name=${name}` : '' %>
   <%= value ? `value=${value}` : '' %>
   <%= form ? `form=${form}` : '' %>
-  <%= selector ? `data-${selector}` : '' %>
-  aria-label="<%= label %>"
+  <%= attributes.join(' ') %>
 >
   <%- include('./icon', {
     icon
   }) %>
+  <span class="sr-only"><%= label %></span>
 </button>
