@@ -1,3 +1,5 @@
+import { broadcaster } from "../broadcaster.js";
+
 (function () {
   const page = document.querySelector("[data-page]");
   if (!page) return;
@@ -27,14 +29,17 @@ async function handleSubmit(e) {
   const data = await response.json();
 
   if (response.ok) {
-    console.log(data);
+    broadcaster.emit("notify", {
+      type: "success",
+      title: "Page updated",
+      message: "Page was updated successfully",
+    });
   } else {
     alert("Update failed");
   }
 }
 
 function handleChange(e, page) {
-  console.log(e.target.name);
   if (e.target.name !== "slug") return;
   const anchor = page.querySelector("[data-base-url]");
   const url = anchor.dataset.baseUrl + e.target.value;

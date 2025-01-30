@@ -16,14 +16,6 @@
         ><%= GET_URL(data.slug) %></a>
       </p>
     </div>
-    <%- include('../components/icon-button',{
-      icon: "settings",
-      label: "Settings",
-      classname: "hover:bg-zinc-200",
-      attributes: [
-        `data-dialog-trigger=${formID}`,
-      ],
-    }) %>
   </div>
 
   <form class="mt-5" id="<%= formID %>">

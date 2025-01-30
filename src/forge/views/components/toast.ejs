@@ -1,0 +1,60 @@
+<%
+  const { position = 'bottom-right' } = locals;
+%>
+
+<div
+  id="<%= id %>"
+  aria-live="polite"
+  data-toast="<%= position %>"
+  class="fixed bottom-0 right-0 flex flex-col gap-3.5 p-3.5 z-50"
+>
+  <template>
+    <%
+      const classnames = [
+        "animate-slide-in",
+        "group text-black pointer-events-auto shadow-lg rounded-lg max-w-sm w-full flex items-start p-3.5 gap-3.5",
+        "[&.information]:bg-blue-50 dark:[&.information]:bg-blue-800 [&.information]:text-blue-800 dark:[&.information]:text-blue-50",
+        "[&.success]:bg-green-50 dark:[&.success]:bg-green-800 [&.success]:text-green-800 dark:[&.success]:text-green-50",
+        "[&.warning]:bg-yellow-50 dark:[&.warning]:bg-yellow-800 [&.warning]:text-yellow-800 dark:[&.warning]:text-yellow-50",
+        "[&.error]:bg-red-50 dark:[&.error]:bg-red-800 [&.error]:text-red-800 dark:[&.error]:text-red-50",
+      ].join(" ");
+      const icons = [
+        {icon: "information", classname: "mt-1 hidden group-[.information]:block"},
+        {icon: "success", classname: "mt-1 hidden group-[.success]:block"},
+        {icon: "warning", classname: "mt-1 hidden group-[.warning]:block"},
+        {icon: "error", classname: "mt-1 hidden group-[.error]:block"},
+      ];
+    %>
+    <div
+      role="alert"
+      class="<%= classnames %>"
+    >
+      <% for(const { icon, classname } of icons) { %>
+        <%- include('./icon', {
+          icon,
+          attributes: [
+            `class="${classname}"`,
+          ],
+        }) %>
+      <% } %>
+      <div>
+        <p
+          data-title
+          class="font-semibold text-lg"
+        ></p>
+        <p
+          data-message
+          class="text-neutral-700 text-sm"
+        ></p>
+      </div>
+      <%- include('./icon-button', {
+        icon: "close",
+        label: "Close toast",
+        classname: `group-[.information]:hover:bg-blue-100 group-[.success]:hover:bg-green-100 group-[.warning]:hover:bg-yellow-100 group-[.error]:hover:bg-red-100`,
+        attributes: [
+          `data-close`,
+        ],
+      }) %>
+    </div>
+  </template>
+</div>

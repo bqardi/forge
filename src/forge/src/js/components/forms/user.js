@@ -24,7 +24,11 @@ async function handleSubmit(e) {
   const data = await response.json();
 
   if (response.ok) {
-    console.log(data);
+    broadcaster.emit("notify", {
+      type: "success",
+      title: "User updated",
+      message: "User was updated successfully",
+    });
   } else {
     alert("Update failed");
   }
