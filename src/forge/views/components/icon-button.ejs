@@ -1,14 +1,10 @@
 <%
   // Optional props
-  const { onclick, value, form, id, name, attributes = [], classname } = locals;
+  const { attributes = [], classname } = locals;
 %>
 
 <button
   class="<%= classname ? classname + ' ' : '' %>w-12 h-12 flex items-center justify-center rounded-full cursor-pointer"
-  <%= id ? `id=${id}` : '' %>
-  <%= name ? `name=${name}` : '' %>
-  <%= value ? `value=${value}` : '' %>
-  <%= form ? `form=${form}` : '' %>
   <%- attributes.join(' ') %>
 >
   <%- include('./icon', {
