@@ -10,9 +10,11 @@ import {
   updatePageController,
 } from "../controllers/api/pageController.js";
 import { themeToggleController } from "../controllers/api/themeControlle.js";
+import { logoutController } from "../controllers/api/logoutController.js";
 
 const router = express.Router();
 
+router.post("/logout", authenticateToken, logoutController);
 router.put("/user", authenticateToken, updateUserController);
 router.post("/post", authenticateToken, createPostController);
 router.put("/post", authenticateToken, updatePostController);
