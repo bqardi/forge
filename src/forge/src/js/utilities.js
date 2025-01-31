@@ -1,3 +1,25 @@
+export function registerDuplicateIDs() {
+  // Do not check for duplicate IDs in production (they should be taken care of in development!).
+  if (process.env.NODE_ENV === "production") return;
+
+  const elements = document.querySelectorAll("[id]");
+  const ids = Array.from(elements).map((element) => element.id);
+  const duplicates = ids.filter((id, index) => ids.indexOf(id) !== index);
+  if (duplicates.length) {
+    console.warn(
+      "Duplicate IDs found:",
+      [...elements]
+        .filter((element) => duplicates.includes(element.id))
+        .map((element) => ({
+          id: element.id,
+          element,
+          tagName: element.tagName,
+          textContent: element.textContent,
+        }))
+    );
+  }
+}
+
 export function getViolator(violations) {
   const violator = [
     "badInput",
