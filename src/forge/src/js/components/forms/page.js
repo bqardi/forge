@@ -3,10 +3,14 @@ import { broadcaster } from "../broadcaster.js";
 (function () {
   const page = document.querySelector("[data-page]");
   if (!page) return;
-  const form = page.querySelector("#form-page");
+  const formID = "form-page";
+  const form = page.querySelector(`#${formID}`);
   if (!form) return;
   form.addEventListener("submit", handleSubmit);
   form.addEventListener("input", (e) => handleChange(e, page));
+  document.querySelectorAll(`[form=${formID}]`).forEach((input) => {
+    input.addEventListener("input", (e) => handleChange(e, page));
+  });
 })();
 
 async function handleSubmit(e) {

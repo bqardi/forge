@@ -35,37 +35,20 @@
         value: data.user.id,
       })
     %>
-    <div class="mb-8 flex max-lg:flex-wrap gap-x-4">
-      <%-
-        include("../components/form/input", {
-          classname: "grow basis-2/3",
-          label: "Title",
-          type: "text",
-          id: "title",
-          name: "title",
-          value: data.title || "",
-          attributes: [
-            "placeholder=Title",
-            "required",
-            `data-required="Title is required"`,
-          ],
-        })
-      %>
-      <%-
-        include("../components/form/input", {
-          classname: "grow basis-1/3",
-          label: "Slug",
-          type: "text",
-          id: "slug",
-          name: "slug",
-          value: data.slug || "",
-          attributes: [
-            "placeholder=Slug",
-            "required",
-            `data-required="Slug is required"`,
-          ],
-        })
-      %>
-    </div>
+    <%-
+      include("../components/form/input", {
+        classname: "grow basis-2/3",
+        label: "Title",
+        type: "text",
+        id: "title",
+        name: "title",
+        value: data.title || "",
+        attributes: [
+          "placeholder=Title",
+          "required",
+          `data-required="Title is required"`,
+        ],
+      })
+    %>
   </form>
 </div>

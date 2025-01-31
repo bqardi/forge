@@ -3,16 +3,35 @@
   const { } = locals;
 %>
 
-<div data-component-content="<%= formID %>" class="p-8">
+<div
+  data-component-content="<%= formID %>"
+  class="p-8 flex flex-wrap gap-3.5"
+>
   <%-
     include("../../components/form/select", {
-      classname: "mb-4",
+      classname: "shrink",
       label: "Type",
       id: "type",
       name: "type",
       values: types || [],
       selected: type || "",
       attributes: [
+        `form=${formID}`,
+      ],
+    })
+  %>
+  <%-
+    include("../../components/form/input", {
+      classname: "shrink",
+      label: "Slug",
+      type: "text",
+      id: "slug",
+      name: "slug",
+      value: data.slug || "",
+      attributes: [
+        "placeholder=Slug",
+        "required",
+        `data-required="Slug is required"`,
         `form=${formID}`,
       ],
     })
