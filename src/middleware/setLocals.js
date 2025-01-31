@@ -1,4 +1,4 @@
-import { config } from "../../utils/global.js";
+import { config } from "../utils/global.js";
 
 export function setLocals(req, res, next) {
   res.locals.BASE_URL = config.BASE_URL;
