@@ -13,7 +13,7 @@ import { themeToggleController } from "../controllers/api/themeControlle.js";
 
 const router = express.Router();
 
-router.put("/profile", authenticateToken, updateUserController);
+router.put("/user", authenticateToken, updateUserController);
 router.post("/post", authenticateToken, createPostController);
 router.put("/post", authenticateToken, updatePostController);
 router.post("/page", authenticateToken, createPageController);

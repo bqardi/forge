@@ -17,7 +17,7 @@ async function handleSubmit(e) {
   const formData = new FormData(e.target);
   const json = Object.fromEntries(formData);
 
-  const response = await fetch("/api/profile", {
+  const response = await fetch("/api/user", {
     method,
     headers: {
       "Content-Type": "application/json",
