@@ -1,143 +1,23 @@
 import express from "express";
 import { authenticateToken } from "../utils/auth.js";
-import { updateUser } from "../services/user.js";
-import { createPost, updatePost } from "../services/post.js";
-import { createPage, updatePage } from "../services/page.js";
-import { setSetting } from "../services/setting.js";
+import { updateUserController } from "../controllers/api/userController.js";
+import {
+  createPostController,
+  updatePostController,
+} from "../controllers/api/postController.js";
+import {
+  createPageController,
+  updatePageController,
+} from "../controllers/api/pageController.js";
+import { themeToggleController } from "../controllers/api/themeControlle.js";
 
 const router = express.Router();
 
-router.post("/logout", (req, res) => {
-  res
-    .status(200)
-    .clearCookie("auth_token")
-    .json({ message: "Logged out successfully" });
-});
-
-router.put("/profile", async (req, res) => {
-  try {
-    const affectedRows = await updateUser(req.body);
-
-    if (affectedRows === -1)
-      return res.status(200).json({ message: "Nothing to update" });
-    if (affectedRows === 0) {
-      return res.status(404).json({ message: "User not found" });
-    }
-
-    res.status(200).json({ message: "Profile updated successfully" });
-  } catch (err) {
-    console.error("Failed to update profile:", err);
-    res.status(500).json({ message: "Internal server error" });
-  }
-});
-
-router.post("/post", authenticateToken, async (req, res) => {
-  try {
-    if (!req.body.title) {
-      return res.status(400).json({ message: "Title is required" });
-    }
-
-    const affectedRows = await createPost(req.body);
-
-    if (affectedRows === -1)
-      return res.status(200).json({ message: "Nothing to update" });
-    if (affectedRows === 0) {
-      return res.status(404).json({ message: "User not found" });
-    }
-
-    res.status(200).json({ message: "Post updated successfully" });
-  } catch (err) {
-    console.error("Failed to update post:", err);
-    res.status(500).json({ message: "Internal server error" });
-  }
-});
-
-router.put("/post", authenticateToken, async (req, res) => {
-  try {
-    if (!req.body.title) {
-      return res.status(400).json({ message: "Title is required" });
-    }
-
-    const affectedRows = await updatePost(req.body);
-
-    if (affectedRows === -1)
-      return res.status(200).json({ message: "Nothing to update" });
-    if (affectedRows === 0) {
-      return res.status(404).json({ message: "User not found" });
-    }
-
-    res.status(200).json({ message: "Post updated successfully" });
-  } catch (err) {
-    console.error("Failed to update post:", err);
-    res.status(500).json({ message: "Internal server error" });
-  }
-});
-
-router.post("/page", authenticateToken, async (req, res) => {
-  try {
-    if (!req.body.title) {
-      return res.status(400).json({ message: "Title is required" });
-    }
-
-    if (!req.body.slug) {
-      return res.status(400).json({ message: "Slug is required" });
-    }
-
-    const affectedRows = await createPage(req.body);
-
-    if (affectedRows === -1)
-      return res.status(200).json({ message: "Nothing to update" });
-    if (affectedRows === 0) {
-      return res.status(404).json({ message: "User not found" });
-    }
-
-    res.status(200).json({ message: "Page updated successfully" });
-  } catch (err) {
-    console.error("Failed to update page:", err);
-    res.status(500).json({ message: "Internal server error" });
-  }
-});
-
-router.put("/page", authenticateToken, async (req, res) => {
-  try {
-    if (!req.body.title) {
-      return res.status(400).json({ message: "Title is required" });
-    }
-
-    if (!req.body.slug) {
-      return res.status(400).json({ message: "Slug is required" });
-    }
-
-    const affectedRows = await updatePage(req.body);
-
-    if (affectedRows === -1)
-      return res.status(200).json({ message: "Nothing to update" });
-    if (affectedRows === 0) {
-      return res.status(404).json({ message: "User not found" });
-    }
-
-    res.status(200).json({ message: "Page updated successfully" });
-  } catch (err) {
-    console.error("Failed to update page:", err);
-    res.status(500).json({ message: "Internal server error" });
-  }
-});
-
-router.post("/activate-theme", authenticateToken, async (req, res) => {
-  try {
-    const { theme, isActive } = req.body;
-
-    const setting = await setSetting({
-      key: "active_theme",
-      value: theme,
-      isActive,
-    });
-
-    res.status(200).json({ message: "Theme updated successfully" });
-  } catch (err) {
-    console.error("Failed to update theme:", err);
-    res.status(500).json({ message: "Internal server error" });
-  }
-});
+router.put("/profile", authenticateToken, updateUserController);
+router.post("/post", authenticateToken, createPostController);
+router.put("/post", authenticateToken, updatePostController);
+router.post("/page", authenticateToken, createPageController);
+router.put("/page", authenticateToken, updatePageController);
+router.post("/activate-theme", authenticateToken, themeToggleController);
 
 export default router;

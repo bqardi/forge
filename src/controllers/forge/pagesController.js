@@ -1,10 +1,6 @@
-import express from "express";
-import { authenticateToken } from "../../utils/auth.js";
 import { getPage, getPages } from "../../services/page.js";
 
-const router = express.Router();
-
-router.get("/", authenticateToken, async (req, res) => {
+export async function pagesController(req, res) {
   const allPages = await getPages();
   const user = req.user;
   const pages = allPages.map((page) => page.dataValues);
@@ -16,9 +12,9 @@ router.get("/", authenticateToken, async (req, res) => {
       pages,
     },
   });
-});
+}
 
-router.get("/:id", authenticateToken, async (req, res) => {
+export async function pageController(req, res) {
   const id = req.params.id;
 
   let data = {
@@ -47,6 +43,4 @@ router.get("/:id", authenticateToken, async (req, res) => {
     },
     data,
   });
-});
-
-export default router;
+}

@@ -1,10 +1,6 @@
-import express from "express";
-import { authenticateToken } from "../../utils/auth.js";
 import { getPlugin, getPlugins } from "../../services/plugin.js";
 
-const router = express.Router();
-
-router.get("/", authenticateToken, async (req, res) => {
+export async function pluginsController(req, res) {
   const allPlugins = await getPlugins();
   const user = req.user;
   const plugins = allPlugins.map((page) => page.dataValues);
@@ -16,9 +12,9 @@ router.get("/", authenticateToken, async (req, res) => {
       plugins,
     },
   });
-});
+}
 
-router.get("/browse", authenticateToken, async (req, res) => {
+export function pluginController(req, res) {
   const id = req.params.id;
 
   let data = {
@@ -33,6 +29,4 @@ router.get("/browse", authenticateToken, async (req, res) => {
     type: "browse",
     data,
   });
-});
-
-export default router;
+}

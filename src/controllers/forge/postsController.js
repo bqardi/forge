@@ -1,10 +1,6 @@
-import express from "express";
-import { authenticateToken } from "../../utils/auth.js";
 import { getPost, getPosts } from "../../services/post.js";
 
-const router = express.Router();
-
-router.get("/", authenticateToken, async (req, res) => {
+export async function postsController(req, res) {
   const allPosts = await getPosts();
   const user = req.user;
   const posts = allPosts.map((post) => post.dataValues);
@@ -16,9 +12,9 @@ router.get("/", authenticateToken, async (req, res) => {
       posts,
     },
   });
-});
+}
 
-router.get("/:id", authenticateToken, async (req, res) => {
+export async function postController(req, res) {
   const id = req.params.id;
 
   let data = {
@@ -41,6 +37,4 @@ router.get("/:id", authenticateToken, async (req, res) => {
     type: "post",
     data,
   });
-});
-
-export default router;
+}

@@ -1,10 +1,6 @@
-import express from "express";
-import { authenticateToken } from "../../utils/auth.js";
 import { getUsers, getUser } from "../../services/user.js";
 
-const router = express.Router();
-
-router.get("/", authenticateToken, async (req, res) => {
+export async function usersController(req, res) {
   try {
     const users = await getUsers();
     res.render("pages/users", {
@@ -15,9 +11,9 @@ router.get("/", authenticateToken, async (req, res) => {
   } catch (err) {
     res.status(500).send("Internal server error");
   }
-});
+}
 
-router.get("/:id", authenticateToken, async (req, res) => {
+export async function userController(req, res) {
   const id = req.params.id;
 
   let data = {
@@ -39,6 +35,4 @@ router.get("/:id", authenticateToken, async (req, res) => {
     type: "user",
     data,
   });
-});
-
-export default router;
+}

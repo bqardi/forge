@@ -1,18 +1,14 @@
-import express from "express";
-import { authenticateToken } from "../../utils/auth.js";
 import { getThemesConfig } from "../../utils/themeHandler.js";
 
-const router = express.Router();
-
-router.get("/", authenticateToken, (req, res) => {
+export function appearanceController(req, res) {
   res.render("pages/appearance", {
     page: "appearance",
     layoutType: "overview",
     data: {},
   });
-});
+}
 
-router.get("/themes", authenticateToken, async (req, res) => {
+export async function themesController(req, res) {
   const themes = await getThemesConfig();
 
   res.render("pages/appearance/themes", {
@@ -27,6 +23,4 @@ router.get("/themes", authenticateToken, async (req, res) => {
       themes,
     },
   });
-});
-
-export default router;
+}

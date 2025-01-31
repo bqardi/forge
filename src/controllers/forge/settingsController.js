@@ -1,17 +1,12 @@
-import express from "express";
-import { authenticateToken } from "../../utils/auth.js";
-
-const router = express.Router();
-
-router.get("/", authenticateToken, (req, res) => {
+export function settingsController(req, res) {
   res.render("pages/settings", {
     page: "settings",
     layoutType: "settings",
     data: {},
   });
-});
+}
 
-router.get("/general", authenticateToken, async (req, res) => {
+export function generalController(req, res) {
   res.render("pages/settings/general", {
     page: "general",
     parent: {
@@ -22,6 +17,4 @@ router.get("/general", authenticateToken, async (req, res) => {
     layoutType: "grid",
     data: {},
   });
-});
-
-export default router;
+}

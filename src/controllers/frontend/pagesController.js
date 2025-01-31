@@ -1,13 +1,10 @@
-import express from "express";
-import Page from "../../models/Page.js";
-import path from "path";
-import { getSetting } from "../../services/setting.js";
 import fs from "fs";
+import path from "path";
+import Page from "../../models/Page.js";
+import { getSetting } from "../../services/setting.js";
 import { config } from "../../utils/global.js";
 
-const router = express.Router();
-
-router.get("/", async (req, res) => {
+export async function pagesController(req, res) {
   const activeTheme = await getSetting("active_theme");
   if (!activeTheme) {
     return res.status(500).send("No active theme found");
@@ -22,9 +19,9 @@ router.get("/", async (req, res) => {
   const themeTemplate = path.join(themeDir, "index.html");
 
   res.sendFile(themeTemplate);
-});
+}
 
-router.get("/:slug", async (req, res) => {
+export async function pageController(req, res) {
   const { slug } = req.params;
 
   const activeTheme = await getSetting("active_theme");
@@ -45,6 +42,4 @@ router.get("/:slug", async (req, res) => {
   } else if (fs.existsSync(fileHtml)) {
     res.sendFile(fileHtml);
   }
-});
-
-export default router;
+}
