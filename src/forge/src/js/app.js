@@ -8,3 +8,4 @@ import "./components/toast.js";
 import "./components/forms/post.js";
 import "./components/forms/page.js";
 import "./components/forms/user.js";
+import "./components/forms/validation.js";

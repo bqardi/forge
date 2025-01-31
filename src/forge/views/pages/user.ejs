@@ -17,10 +17,13 @@
     %>
     <%-
       include("../components/form/input-password", {
-        classname: "mb-4",
+        classname: "mb-8",
         label: "Change password",
         id: "password",
         name: "password",
+        attributes: [
+          "placeholder=Password",
+        ],
       })
     %>
   </form>

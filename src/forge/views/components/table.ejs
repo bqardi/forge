@@ -1,4 +1,4 @@
-<table class="min-w-full bg-white">
+<table class="min-w-full bg-white border-collapse">
   <thead>
     <tr>
       <% columns.forEach(column => { %>
@@ -8,9 +8,9 @@
   </thead>
   <tbody>
     <% data.forEach(item => { %>
-    <tr>
+    <tr class="border-b border-gray-200">
       <% columns.forEach(column => { %>
-      <td class="py-2 px-4 border-b border-gray-200">
+      <td class="py-2 px-4">
         <% if (column.link) { %>
           <a
             href="<%= item[column.link] %>"

@@ -12,6 +12,8 @@ import { broadcaster } from "../broadcaster.js";
 async function handleSubmit(e) {
   e.preventDefault();
 
+  if (!e.target.checkValidity()) return;
+
   const id = e.target.publisher.value;
   const method = id === "create" ? "POST" : "PUT";
 
@@ -26,16 +28,20 @@ async function handleSubmit(e) {
     body: JSON.stringify(json),
   });
 
-  const data = await response.json();
+  const { message } = await response.json();
 
   if (response.ok) {
     broadcaster.emit("notify", {
       type: "success",
-      title: "Page updated",
-      message: "Page was updated successfully",
+      title: `Success ${response.status} - ${response.statusText}`,
+      message,
     });
   } else {
-    alert("Update failed");
+    broadcaster.emit("notify", {
+      type: "error",
+      title: `Error ${response.status} - ${response.statusText}`,
+      message,
+    });
   }
 }
 

@@ -8,9 +8,13 @@
   <select
     id="<%= id %>"
     name="<%= name %>"
-    class="mt-1 block w-full px-3 py-2 bg-white border border-gray-300 rounded-md shadow-sm focus-visible:outline-none focus-visible:ring-indigo-500 focus-visible:border-indigo-500 sm:text-sm"
+    class="peer [&.error]:invalid:bg-red-50 [&.error]:invalid:text-red-800 [&.error]:invalid:border-red-400 mt-1 block w-full px-3 py-2 bg-white border border-gray-400 rounded-md focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-amber-600 sm:text-sm"
     <%- attributes.join(' ') %>
   >
     <%- values.map(({key, value}) => `<option value="${key}"${selected === key ? ' selected' : ''}>${value}</option>`).join('') %>
   </select>
+  <span
+    class="hidden peer-[.error]:peer-invalid:inline absolute top-full left-3.5 text-xs py-px text-red-500"
+    data-error
+  >Error message</span>
 </div>

@@ -1,29 +1,29 @@
 <div class="grid place-content-center h-screen">
-  <h1 class="text-3xl font-semibold"><%= title %></h1>
-  <p class="text-lg mb-3.5"><%= content %></p>
-  <form class="flex flex-col gap-3.5 min-w-[320px]" data-forge-login-form>
+  <h1 class="text-4xl font-semibold mb-2"><%= title %></h1>
+  <p class="text-lg mb-8"><%= content %></p>
+  <form class="flex flex-col gap-8 min-w-[260px]" data-forge-login-form>
     <%-
       include("./components/form/input", {
-        classname: "mb-2",
         label: "Enter username",
         type: "text",
         id: "username",
         name: "username",
         attributes: [
           "placeholder=Username",
-          "required"
+          "required",
+          `data-required="Username is required"`,
         ],
       })
     %>
     <%-
       include("./components/form/input-password", {
-        classname: "mb-2",
         label: "Enter password",
         id: "password",
         name: "password",
         attributes: [
           "placeholder=Password",
-          "required"
+          "required",
+          `data-required="Password is required"`,
         ],
       })
     %>
@@ -35,3 +35,9 @@
     %>
   </form>
 </div>
+
+<%-
+  include('./components/toast', {
+    id: "login-toast",
+  })
+%>

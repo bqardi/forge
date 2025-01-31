@@ -25,12 +25,17 @@
     %>
     <%-
       include("../components/form/input", {
-        classname: "mb-4",
+        classname: "mb-8",
         label: "Title",
         type: "text",
         id: "title",
         name: "title",
         value: data.title,
+        attributes: [
+          "placeholder=Title",
+          "required",
+          `data-required="Title is required"`,
+        ],
       })
     %>
   </form>

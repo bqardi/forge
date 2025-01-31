@@ -33,6 +33,10 @@ router.put("/profile", async (req, res) => {
 
 router.post("/post", authenticateToken, async (req, res) => {
   try {
+    if (!req.body.title) {
+      return res.status(400).json({ message: "Title is required" });
+    }
+
     const affectedRows = await createPost(req.body);
 
     if (affectedRows === -1)
@@ -41,15 +45,19 @@ router.post("/post", authenticateToken, async (req, res) => {
       return res.status(404).json({ message: "User not found" });
     }
 
-    res.status(200).json({ message: "Profile updated successfully" });
+    res.status(200).json({ message: "Post updated successfully" });
   } catch (err) {
-    console.error("Failed to update profile:", err);
+    console.error("Failed to update post:", err);
     res.status(500).json({ message: "Internal server error" });
   }
 });
 
 router.put("/post", authenticateToken, async (req, res) => {
   try {
+    if (!req.body.title) {
+      return res.status(400).json({ message: "Title is required" });
+    }
+
     const affectedRows = await updatePost(req.body);
 
     if (affectedRows === -1)
@@ -58,15 +66,23 @@ router.put("/post", authenticateToken, async (req, res) => {
       return res.status(404).json({ message: "User not found" });
     }
 
-    res.status(200).json({ message: "Profile updated successfully" });
+    res.status(200).json({ message: "Post updated successfully" });
   } catch (err) {
-    console.error("Failed to update profile:", err);
+    console.error("Failed to update post:", err);
     res.status(500).json({ message: "Internal server error" });
   }
 });
 
 router.post("/page", authenticateToken, async (req, res) => {
   try {
+    if (!req.body.title) {
+      return res.status(400).json({ message: "Title is required" });
+    }
+
+    if (!req.body.slug) {
+      return res.status(400).json({ message: "Slug is required" });
+    }
+
     const affectedRows = await createPage(req.body);
 
     if (affectedRows === -1)
@@ -75,15 +91,23 @@ router.post("/page", authenticateToken, async (req, res) => {
       return res.status(404).json({ message: "User not found" });
     }
 
-    res.status(200).json({ message: "Profile updated successfully" });
+    res.status(200).json({ message: "Page updated successfully" });
   } catch (err) {
-    console.error("Failed to update profile:", err);
+    console.error("Failed to update page:", err);
     res.status(500).json({ message: "Internal server error" });
   }
 });
 
 router.put("/page", authenticateToken, async (req, res) => {
   try {
+    if (!req.body.title) {
+      return res.status(400).json({ message: "Title is required" });
+    }
+
+    if (!req.body.slug) {
+      return res.status(400).json({ message: "Slug is required" });
+    }
+
     const affectedRows = await updatePage(req.body);
 
     if (affectedRows === -1)
@@ -92,9 +116,9 @@ router.put("/page", authenticateToken, async (req, res) => {
       return res.status(404).json({ message: "User not found" });
     }
 
-    res.status(200).json({ message: "Profile updated successfully" });
+    res.status(200).json({ message: "Page updated successfully" });
   } catch (err) {
-    console.error("Failed to update profile:", err);
+    console.error("Failed to update page:", err);
     res.status(500).json({ message: "Internal server error" });
   }
 });
@@ -109,9 +133,9 @@ router.post("/activate-theme", authenticateToken, async (req, res) => {
       isActive,
     });
 
-    res.status(200).json({ message: "Profile updated successfully" });
+    res.status(200).json({ message: "Theme updated successfully" });
   } catch (err) {
-    console.error("Failed to update profile:", err);
+    console.error("Failed to update theme:", err);
     res.status(500).json({ message: "Internal server error" });
   }
 });

@@ -32,25 +32,24 @@ export const createUser = async (values) => {
 };
 
 export const updateUser = async (values) => {
-  const { id, password } = values;
-
-  console.log(id, password);
+  const { id, password, ...rest } = values;
 
   if (!id) {
     throw new Error("User ID is required");
   }
 
-  if (!password) -1;
+  if (password?.trim() !== "") {
+    rest.password = await bcrypt.hash(password, 10);
+  }
 
-  const newPassword = await bcrypt.hash(password, 10);
+  if (Object.keys(rest).length === 0) {
+    return -1;
+  }
 
   try {
-    const [affectedRows] = await User.update(
-      { password: newPassword },
-      {
-        where: { id },
-      }
-    );
+    const [affectedRows] = await User.update(rest, {
+      where: { id },
+    });
 
     if (affectedRows === 0) {
       throw new Error("User not found");
