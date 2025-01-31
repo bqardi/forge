@@ -6,10 +6,10 @@ import frontendPages from "./routes/frontend.js";
 import cookieParser from "cookie-parser";
 import expressLayouts from "express-ejs-layouts";
 import { event, hook } from "./utils/hookManager/index.js";
-import { filemap } from "./middleware/filemap.js";
+import { filemap } from "./middlewares/filemap.js";
+import { setLocals } from "./middlewares/setLocals.js";
 import path from "path";
 import { fileURLToPath } from "url";
-import { setLocals } from "./middleware/setLocals.js";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 

@@ -9,7 +9,7 @@ import {
   createPageController,
   updatePageController,
 } from "../controllers/api/pageController.js";
-import { themeToggleController } from "../controllers/api/themeControlle.js";
+import { themeToggleController } from "../controllers/api/themeController.js";
 import { logoutController } from "../controllers/api/logoutController.js";
 
 const router = express.Router();

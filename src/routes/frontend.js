@@ -3,10 +3,11 @@ import {
   pageController,
   pagesController,
 } from "../controllers/frontend/pagesController.js";
+import { themeMiddleware } from "../middlewares/themeMiddleware.js";
 
 const router = express.Router();
 
-router.get("/", pagesController);
-router.get("/:slug", pageController);
+router.get("/", themeMiddleware, pagesController);
+router.get("/*", themeMiddleware, pageController);
 
 export default router;
