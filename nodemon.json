@@ -6,6 +6,7 @@
     "src/routes",
     "src/services",
     "src/utils",
+    "src/public/content/themes",
     "src/app.js",
     "src/server.js"
   ],
