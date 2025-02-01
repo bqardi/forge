@@ -7,7 +7,7 @@ export async function pagesController(req, res) {
   const user = req.user;
   const pages = allPages.map((page) => page.dataValues);
 
-  hook.action(event.onRouteBackend, "pages");
+  await hook.action(event.onRouteBackend, "pages");
 
   res.render("pages/pages", {
     page: "pages",
@@ -50,7 +50,7 @@ export async function pageController(req, res) {
     };
   }
 
-  hook.action(event.onRouteBackend, "childpages");
+  await hook.action(event.onRouteBackend, "childpages");
 
   res.render("pages/page", {
     id: reqID,

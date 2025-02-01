@@ -1,7 +1,7 @@
 import { event, hook } from "../../utils/hookManager/index.js";
 
-export function settingsController(req, res) {
-  hook.action(event.onRouteBackend, "settings");
+export async function settingsController(req, res) {
+  await hook.action(event.onRouteBackend, "settings");
 
   res.render("pages/settings", {
     page: "settings",
@@ -10,8 +10,8 @@ export function settingsController(req, res) {
   });
 }
 
-export function generalController(req, res) {
-  hook.action(event.onRouteBackend, "general");
+export async function generalController(req, res) {
+  await hook.action(event.onRouteBackend, "general");
 
   res.render("pages/settings/general", {
     page: "general",

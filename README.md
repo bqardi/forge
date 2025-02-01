@@ -116,10 +116,10 @@ export default router;
 import newRoute from "./routes/forge/newRoute.js";
 
 // Routes
-hook.action(event.beforeRouteBackend);
+await hook.action(event.beforeRouteBackend);
 ...
 app.use("/forge/new-route", newRoute);
-hook.action(event.afterRouteBackend);
+await hook.action(event.afterRouteBackend);
 ```
 
 #### Public Routes (Frontend routes)

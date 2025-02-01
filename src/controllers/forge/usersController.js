@@ -5,7 +5,7 @@ export async function usersController(req, res) {
   try {
     const users = await getUsers();
 
-    hook.action(event.onRouteBackend, "users");
+    await hook.action(event.onRouteBackend, "users");
 
     res.render("pages/users", {
       page: "users",
@@ -32,7 +32,7 @@ export async function userController(req, res) {
     };
   }
 
-  hook.action(event.onRouteBackend, "user");
+  await hook.action(event.onRouteBackend, "user");
 
   res.render("pages/user", {
     id,

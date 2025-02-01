@@ -10,50 +10,51 @@ import { filemap } from "./middlewares/filemap.js";
 import { setLocals } from "./middlewares/setLocals.js";
 import path from "path";
 import { fileURLToPath } from "url";
-import { assetManager } from "./utils/assetManager/assetManager.js";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
-export function initializeApp() {
+export async function initializeApp() {
   const app = express();
 
   // Middlewares
-  hook.action(event.beforeMiddleware);
+  await hook.action(event.beforeMiddleware);
   app.use(express.json());
-  hook.action(event.onMiddleware, "json");
+  await hook.action(event.onMiddleware, "json");
   app.use(cookieParser());
-  hook.action(event.onMiddleware, "cookieParser");
+  await hook.action(event.onMiddleware, "cookieParser");
   app.use(express.urlencoded({ extended: true }));
-  hook.action(event.onMiddleware, "urlencoded");
+  await hook.action(event.onMiddleware, "urlencoded");
   app.use(expressLayouts);
-  hook.action(event.onMiddleware, "expressLayouts");
+  await hook.action(event.onMiddleware, "expressLayouts");
   app.use(filemap);
-  hook.action(event.onMiddleware, "filemap");
+  await hook.action(event.onMiddleware, "filemap");
   app.use(setLocals);
-  hook.action(event.onMiddleware, "setLocals");
-  hook.action(event.afterMiddleware);
+  await hook.action(event.onMiddleware, "setLocals");
+  await hook.action(event.afterMiddleware);
 
   // EJS views
   app.set("views", path.join(__dirname, "forge", "views"));
   app.set("view engine", "ejs");
 
-  // Static files (for themes and assets)
-  hook.action(event.beforeAssetRegister, assetManager);
-  app.use(express.static(path.join(__dirname, "forge", "assets")));
-  // TODO: Make this hook work so the registered assets are loaded:
-  hook.action(event.afterAssetRegister, assetManager);
+  // Static files for Forge (backend css, js, images)
+  await hook.action(event.beforeAssetRegister);
+  app.get("/forge-assets/:type/:file", (req, res) => {
+    const { type, file } = req.params;
+    res.sendFile(path.join(__dirname, "forge", "assets", type, file));
+  });
+  await hook.action(event.afterAssetRegister);
 
   // Routes
-  hook.action(event.beforeRouteBackend);
+  await hook.action(event.beforeRouteBackend);
   app.use("/forge", forge);
   app.use("/login", login);
   app.use("/api", api);
-  hook.action(event.afterRouteBackend);
+  await hook.action(event.afterRouteBackend);
 
-  hook.action(event.beforeRouteFrontend);
+  await hook.action(event.beforeRouteFrontend);
   app.use("/", frontendPages);
-  hook.action(event.onRouteFrontend, "forge");
-  hook.action(event.afterRouteFrontend);
+  await hook.action(event.onRouteFrontend, "forge");
+  await hook.action(event.afterRouteFrontend);
 
   return app;
 }

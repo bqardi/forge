@@ -1,3 +1,4 @@
+import express from "express";
 import { assetManager } from "../../assetManager/assetManager.js";
 
 export function beforeAssetRegister() {
@@ -11,6 +12,6 @@ export function onAssetRegister(type) {
 
 export function afterAssetRegister() {
   process.env.LOG_HOOK_EVENTS === "true" && console.log("After AssetRegister");
-  const registeredAssets = assetManager.getAssets();
-  console.log(registeredAssets);
+  const app = express();
+  assetManager.generateRoutes(app);
 }

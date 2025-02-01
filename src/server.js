@@ -9,11 +9,11 @@ import { getCurrentThemeName, initializeTheme } from "./utils/themeHandler.js";
 (async function () {
   const dbExists = databaseExists();
 
-  hook.action(event.beforeSystemInit);
+  await hook.action(event.beforeSystemInit);
 
   try {
     await sequelize.sync();
-    hook.action(event.onSystemInit, "database");
+    await hook.action(event.onSystemInit, "database");
 
     // TODO: Replace this with a more user friendly setup process
     if (!dbExists) {
@@ -28,17 +28,17 @@ import { getCurrentThemeName, initializeTheme } from "./utils/themeHandler.js";
     const activeTheme = await getCurrentThemeName();
     if (activeTheme) await initializeTheme(activeTheme);
 
-    const app = initializeApp();
+    const app = await initializeApp();
 
     const PORT = process.env.SERVER_PORT || 3210;
 
-    app.listen(PORT, () => {
+    app.listen(PORT, async () => {
       console.log(`\nServer is running on localhost:${PORT}`);
       console.log("Open in browser at http://localhost:3000 (proxied)");
-      hook.action(event.onSystemInit, "server");
+      await hook.action(event.onSystemInit, "server");
     });
 
-    hook.action(event.afterSystemInit);
+    await hook.action(event.afterSystemInit);
   } catch (err) {
     console.error("Failed to sync database", err);
   }

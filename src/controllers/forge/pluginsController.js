@@ -6,7 +6,7 @@ export async function pluginsController(req, res) {
   const user = req.user;
   const plugins = allPlugins.map((page) => page.dataValues);
 
-  hook.action(event.onRouteBackend, "plugins");
+  await hook.action(event.onRouteBackend, "plugins");
 
   res.render("pages/plugins", {
     page: "plugins",
@@ -18,7 +18,7 @@ export async function pluginsController(req, res) {
   });
 }
 
-export function pluginController(req, res) {
+export async function pluginController(req, res) {
   const id = req.params.id;
 
   let data = {
@@ -26,7 +26,7 @@ export function pluginController(req, res) {
     user: req.user,
   };
 
-  hook.action(event.onRouteBackend, "plugin-browse");
+  await hook.action(event.onRouteBackend, "plugin-browse");
 
   res.render("pages/plugin-browse", {
     id,

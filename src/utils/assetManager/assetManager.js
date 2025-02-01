@@ -1,20 +1,26 @@
+import path from "path";
+
 class AssetManager {
+  #assets;
+
   constructor() {
-    this.assets = { css: [], js: [] }; // Store assets
+    this.#assets = []; // Store assets
   }
 
-  // Register a CSS or JS file
-  register(type, url) {
-    if (!["css", "js"].includes(type)) {
-      throw new Error('Invalid asset type. Use "css" or "js".');
-    }
-    this.assets[type].push(url);
+  get assets() {
+    return this.#assets;
   }
 
-  // Get all assets (can be filtered by route)
-  getAssets(route) {
-    // Optionally filter assets based on route or other logic
-    return this.assets;
+  register(asset) {
+    this.#assets.push(asset);
+  }
+
+  generateRoutes(app) {
+    this.#assets.forEach((asset) => {
+      app.get(asset.url, (req, res) => {
+        res.sendFile(path.resolve(asset.filePath));
+      });
+    });
   }
 }
 

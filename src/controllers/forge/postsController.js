@@ -6,7 +6,7 @@ export async function postsController(req, res) {
   const user = req.user;
   const posts = allPosts.map((post) => post.dataValues);
 
-  hook.action(event.onRouteBackend, "posts");
+  await hook.action(event.onRouteBackend, "posts");
 
   res.render("pages/posts", {
     page: "posts",
@@ -34,7 +34,7 @@ export async function postController(req, res) {
     };
   }
 
-  hook.action(event.onRouteBackend, "childposts");
+  await hook.action(event.onRouteBackend, "childposts");
 
   res.render("pages/post", {
     id,
