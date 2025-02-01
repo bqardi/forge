@@ -1,4 +1,3 @@
-import express from "express";
 import { assetManager } from "../../assetManager/assetManager.js";
 
 export function beforeAssetRegister() {
@@ -10,8 +9,7 @@ export function onAssetRegister(type) {
     console.log("On AssetRegister:", type);
 }
 
-export function afterAssetRegister() {
+export function afterAssetRegister(app) {
   process.env.LOG_HOOK_EVENTS === "true" && console.log("After AssetRegister");
-  const app = express();
   assetManager.generateRoutes(app);
 }

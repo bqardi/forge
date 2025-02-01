@@ -36,17 +36,11 @@ export async function initializeApp() {
   app.set("views", path.join(__dirname, "forge", "views"));
   app.set("view engine", "ejs");
 
-  // Static files for Forge (backend css, js, images)
-  await hook.action(event.beforeAssetRegister);
-  app.get("/forge-assets/:type/:file", (req, res) => {
-    const { type, file } = req.params;
-    res.sendFile(path.join(__dirname, "forge", "assets", type, file));
-  });
-  await hook.action(event.afterAssetRegister);
-
   // Routes
   await hook.action(event.beforeRouteBackend);
+  await hook.action(event.beforeAssetRegister);
   app.use("/forge", forge);
+  await hook.action(event.afterAssetRegister, app);
   app.use("/login", login);
   app.use("/api", api);
   await hook.action(event.afterRouteBackend);

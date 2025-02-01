@@ -23,10 +23,12 @@ import {
   settingsController,
 } from "../controllers/forge/settingsController.js";
 import { mediaController } from "../controllers/forge/mediaController.js";
+import { assetsController } from "../controllers/forge/assetsController.js";
 
 const router = express.Router();
 
 router.get("/", authenticateToken, dashboardController);
+router.get("/assets/:type/:file", assetsController);
 router.get("/pages", authenticateToken, pagesController);
 router.get("/pages/:id", authenticateToken, pageController);
 router.get("/posts", authenticateToken, postsController);

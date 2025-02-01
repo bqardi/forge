@@ -4,7 +4,7 @@ class AssetManager {
   #assets;
 
   constructor() {
-    this.#assets = []; // Store assets
+    this.#assets = [];
   }
 
   get assets() {

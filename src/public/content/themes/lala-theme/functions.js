@@ -6,7 +6,7 @@ hook.register(
   event.beforeAssetRegister,
   async () => {
     const themeCSSPath = await config.GET_THEME_PATH("style.css");
-    const themeJSPath = await config.GET_THEME_PATH("script.css");
+    const themeJSPath = await config.GET_THEME_PATH("script.js");
     assetManager.register({
       url: "/style.css",
       filePath: themeCSSPath,
