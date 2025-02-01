@@ -1,6 +1,6 @@
-import { assetManager } from "../../../../utils/assetManager/assetManager.js";
-import { config } from "../../../../utils/global.js";
-import { event, hook } from "../../../../utils/hookManager/index.js";
+import { assetManager } from "../../../utils/assetManager/assetManager.js";
+import { config } from "../../../utils/global.js";
+import { event, hook } from "../../../utils/hookManager/index.js";
 
 hook.register(
   event.beforeAssetRegister,
