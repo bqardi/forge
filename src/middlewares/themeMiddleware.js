@@ -1,9 +1,6 @@
 import { getCurrentThemeName } from "../utils/themeHandler.js";
 import path from "path";
-import { fileURLToPath } from "url";
 import { config } from "../utils/global.js";
-
-const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
 export async function themeMiddleware(req, res, next) {
   const activeTheme = await getCurrentThemeName();
