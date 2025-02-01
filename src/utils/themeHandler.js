@@ -3,6 +3,7 @@ import path from "path";
 import { getSetting } from "../services/setting.js";
 import { config } from "./global.js";
 import { prettifySlug } from "./stringHandler.js";
+import { pathToFileURL } from "url";
 
 export async function getCurrentThemeName() {
   const activeTheme = await getSetting("active_theme");
@@ -78,4 +79,16 @@ export function getThemeRating(themeName) {
   };
 
   return dummyList[themeName];
+}
+
+export async function initializeTheme(theme) {
+  if (!theme) return;
+
+  const themeConfig = await getCurrentThemeConfig(theme);
+  if (!themeConfig) return;
+
+  const themeEntry = path.join(config.THEMES_PATH, theme, themeConfig.entry);
+  const themeEntryUrl = pathToFileURL(themeEntry).href;
+
+  await import(themeEntryUrl);
 }

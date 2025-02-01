@@ -10,47 +10,50 @@ import { filemap } from "./middlewares/filemap.js";
 import { setLocals } from "./middlewares/setLocals.js";
 import path from "path";
 import { fileURLToPath } from "url";
+import { assetManager } from "./utils/assetManager/assetManager.js";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
-const app = express();
+export function initializeApp() {
+  const app = express();
 
-// Middlewares
-hook.action(event.beforeMiddleware);
-app.use(express.json());
-hook.action(event.onMiddleware, "json");
-app.use(cookieParser());
-hook.action(event.onMiddleware, "cookieParser");
-app.use(express.urlencoded({ extended: true }));
-hook.action(event.onMiddleware, "urlencoded");
-app.use(expressLayouts);
-hook.action(event.onMiddleware, "expressLayouts");
-app.use(filemap);
-hook.action(event.onMiddleware, "filemap");
-app.use(setLocals);
-hook.action(event.onMiddleware, "setLocals");
-hook.action(event.afterMiddleware);
+  // Middlewares
+  hook.action(event.beforeMiddleware);
+  app.use(express.json());
+  hook.action(event.onMiddleware, "json");
+  app.use(cookieParser());
+  hook.action(event.onMiddleware, "cookieParser");
+  app.use(express.urlencoded({ extended: true }));
+  hook.action(event.onMiddleware, "urlencoded");
+  app.use(expressLayouts);
+  hook.action(event.onMiddleware, "expressLayouts");
+  app.use(filemap);
+  hook.action(event.onMiddleware, "filemap");
+  app.use(setLocals);
+  hook.action(event.onMiddleware, "setLocals");
+  hook.action(event.afterMiddleware);
 
-// EJS views
-app.set("views", path.join(__dirname, "forge", "views"));
-app.set("view engine", "ejs");
+  // EJS views
+  app.set("views", path.join(__dirname, "forge", "views"));
+  app.set("view engine", "ejs");
 
-// Static files (for themes and assets)
-app.use(express.static(path.join(__dirname, "forge", "assets")));
+  // Static files (for themes and assets)
+  hook.action(event.beforeAssetRegister, assetManager);
+  app.use(express.static(path.join(__dirname, "forge", "assets")));
+  // TODO: Make this hook work so the registered assets are loaded:
+  hook.action(event.afterAssetRegister, assetManager);
 
-// Routes
-hook.action(event.beforeRouteBackend);
-app.use("/forge", forge);
-hook.action(event.onRouteBackend, "forge");
-app.use("/login", login);
-hook.action(event.onRouteBackend, "login");
-app.use("/api", api);
-hook.action(event.onRouteBackend, "api");
-hook.action(event.afterRouteBackend);
+  // Routes
+  hook.action(event.beforeRouteBackend);
+  app.use("/forge", forge);
+  app.use("/login", login);
+  app.use("/api", api);
+  hook.action(event.afterRouteBackend);
 
-hook.action(event.beforeRouteFrontend);
-app.use("/", frontendPages);
-hook.action(event.onRouteFrontend, "forge");
-hook.action(event.afterRouteFrontend);
+  hook.action(event.beforeRouteFrontend);
+  app.use("/", frontendPages);
+  hook.action(event.onRouteFrontend, "forge");
+  hook.action(event.afterRouteFrontend);
 
-export default app;
+  return app;
+}

@@ -1,4 +1,5 @@
 import { setSetting } from "../../services/setting.js";
+import { initializeTheme } from "../../utils/themeHandler.js";
 
 export async function themeToggleController(req, res) {
   try {
@@ -10,7 +11,7 @@ export async function themeToggleController(req, res) {
       isActive,
     });
 
-    console.log({ setting });
+    !isActive && (await initializeTheme(theme));
 
     res.status(200).json({ message: "Theme updated successfully" });
   } catch (err) {

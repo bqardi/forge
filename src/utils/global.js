@@ -1,6 +1,7 @@
 import path from "path";
 import { fileURLToPath, URL } from "url";
 import dotenv from "dotenv";
+import { getCurrentThemeName } from "./themeHandler.js";
 dotenv.config({
   path: [".env.local", ".env"],
 });
@@ -19,5 +20,9 @@ export const config = {
     const url = new URL(BASE_URL);
     url.pathname = path.join(url.pathname, ...subpages);
     return url.href;
+  },
+  GET_THEME_PATH: async (...folders) => {
+    const themeName = await getCurrentThemeName();
+    return path.join(config.THEMES_PATH, themeName, ...folders);
   },
 };

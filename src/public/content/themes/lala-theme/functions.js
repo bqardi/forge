@@ -1,28 +1,15 @@
+import { config } from "../../../../utils/global.js";
 import { event, hook } from "../../../../utils/hookManager/index.js";
 
 hook.register(
-  event.onMiddleware,
-  (type) => {
-    if (type !== "urlencoded") return;
-    console.log("On Middleware by USER:", type);
+  event.beforeAssetRegister,
+  async (assetManager) => {
+    const themeCSSPath = await config.GET_THEME_PATH("style.css");
+    const themeJSPath = await config.GET_THEME_PATH("script.css");
+    assetManager.register("css", themeCSSPath);
+    assetManager.register("js", themeJSPath);
+    const registeredAssets = assetManager.getAssets();
+    console.log(registeredAssets);
   },
   10
 );
-
-hook.register(
-  event.beforeRouteRegister,
-  (assetManager) => {
-    assetManager.register(
-      "css",
-      "/src/public/content/themes/base-theme/style.css"
-    );
-    assetManager.register(
-      "js",
-      "/src/public/content/themes/base-theme/script.js"
-    );
-    console.log(assetManager.getAssets());
-  },
-  10
-);
-
-console.log("Base theme loaded");

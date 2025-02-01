@@ -1,10 +1,14 @@
 import { getPage, getPages } from "../../services/page.js";
 import { formatDate } from "../../utils/date.js";
+import { event, hook } from "../../utils/hookManager/index.js";
 
 export async function pagesController(req, res) {
   const allPages = await getPages();
   const user = req.user;
   const pages = allPages.map((page) => page.dataValues);
+
+  hook.action(event.onRouteBackend, "pages");
+
   res.render("pages/pages", {
     page: "pages",
     layoutType: "overview",
@@ -45,6 +49,8 @@ export async function pageController(req, res) {
       }),
     };
   }
+
+  hook.action(event.onRouteBackend, "childpages");
 
   res.render("pages/page", {
     id: reqID,

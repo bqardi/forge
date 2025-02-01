@@ -1,8 +1,12 @@
 import { getUsers, getUser } from "../../services/user.js";
+import { event, hook } from "../../utils/hookManager/index.js";
 
 export async function usersController(req, res) {
   try {
     const users = await getUsers();
+
+    hook.action(event.onRouteBackend, "users");
+
     res.render("pages/users", {
       page: "users",
       layoutType: "overview",
@@ -27,6 +31,8 @@ export async function userController(req, res) {
       ...user.dataValues,
     };
   }
+
+  hook.action(event.onRouteBackend, "user");
 
   res.render("pages/user", {
     id,

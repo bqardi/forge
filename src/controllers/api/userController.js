@@ -1,4 +1,5 @@
 import { updateUser } from "../../services/user.js";
+import { event, hook } from "../../utils/hookManager/index.js";
 
 export async function updateUserController(req, res) {
   try {
@@ -10,6 +11,7 @@ export async function updateUserController(req, res) {
       return res.status(404).json({ message: "User not found" });
     }
 
+    hook.action(event.onRouteBackend, "api");
     res.status(200).json({ message: "Profile updated successfully" });
   } catch (err) {
     console.error("Failed to update profile:", err);

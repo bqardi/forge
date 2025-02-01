@@ -18,4 +18,4 @@ class AssetManager {
   }
 }
 
-export default new AssetManager();
+export const assetManager = new AssetManager();

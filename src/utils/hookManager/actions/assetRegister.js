@@ -1,3 +1,5 @@
+import { assetManager } from "../../assetManager/assetManager.js";
+
 export function beforeAssetRegister() {
   process.env.LOG_HOOK_EVENTS === "true" && console.log("Before AssetRegister");
 }
@@ -9,4 +11,6 @@ export function onAssetRegister(type) {
 
 export function afterAssetRegister() {
   process.env.LOG_HOOK_EVENTS === "true" && console.log("After AssetRegister");
+  const registeredAssets = assetManager.getAssets();
+  console.log(registeredAssets);
 }

@@ -1,8 +1,10 @@
 import jwt from "jsonwebtoken";
 import bcrypt from "bcrypt";
 import User from "../models/User.js";
+import { event, hook } from "../utils/hookManager/index.js";
 
 export function loginController(req, res) {
+  hook.action(event.onRouteBackend, "login");
   res.render("login", {
     layoutType: "login",
     title: "Login",
@@ -35,6 +37,7 @@ export async function loginAttemptController(req, res) {
       sameSite: "Strict",
     });
 
+    hook.action(event.onRouteBackend, "login-attempt");
     return res.json({ token });
   } catch (err) {
     console.error("Login error:", err);

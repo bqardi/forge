@@ -1,10 +1,10 @@
 import "./utils/global.js";
-import "./utils/themeHandler.js";
-import app from "./app.js";
 import sequelize from "./config/database.js";
+import { initializeApp } from "./app.js";
 import { event, hook } from "./utils/hookManager/index.js";
 import { databaseExists } from "./utils/scripts/firstTimeSetup.js";
 import { addUser } from "./utils/scripts/addUser.js";
+import { getCurrentThemeName, initializeTheme } from "./utils/themeHandler.js";
 
 (async function () {
   const dbExists = databaseExists();
@@ -24,6 +24,11 @@ import { addUser } from "./utils/scripts/addUser.js";
         email: "test@test.com",
       });
     }
+
+    const activeTheme = await getCurrentThemeName();
+    if (activeTheme) await initializeTheme(activeTheme);
+
+    const app = initializeApp();
 
     const PORT = process.env.SERVER_PORT || 3210;
 

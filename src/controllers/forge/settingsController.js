@@ -1,4 +1,8 @@
+import { event, hook } from "../../utils/hookManager/index.js";
+
 export function settingsController(req, res) {
+  hook.action(event.onRouteBackend, "settings");
+
   res.render("pages/settings", {
     page: "settings",
     layoutType: "settings",
@@ -7,6 +11,8 @@ export function settingsController(req, res) {
 }
 
 export function generalController(req, res) {
+  hook.action(event.onRouteBackend, "general");
+
   res.render("pages/settings/general", {
     page: "general",
     parent: {

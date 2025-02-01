@@ -17,11 +17,7 @@ class HookManager {
     if (this.hooks[hookName]) {
       for (const { callback } of this.hooks[hookName]) {
         try {
-          if (callback.constructor.name === "AsyncFunction") {
-            await callback(...args);
-          } else {
-            callback(...args);
-          }
+          await callback(...args); // Always await the callback
         } catch (err) {
           console.error(`Error in hook "${hookName}":`, err);
         }
@@ -33,11 +29,7 @@ class HookManager {
     if (this.hooks[hookName]) {
       for (const { callback } of this.hooks[hookName]) {
         try {
-          if (callback.constructor.name === "AsyncFunction") {
-            data = await callback(data, ...args);
-          } else {
-            data = callback(data, ...args);
-          }
+          data = await callback(data, ...args); // Always await the callback
         } catch (err) {
           console.error(`Error in filter "${hookName}":`, err);
         }
