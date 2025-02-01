@@ -21,11 +21,6 @@ export const getPage = async (id) => {
 
     return {
       ...page.dataValues,
-      // TODO: Fetch page types from database
-      types: [
-        { key: "default", value: "Default" },
-        { key: "frontpage", value: "Frontpage" },
-      ],
     };
   } catch (err) {
     console.error("Failed to fetch page:", err);
@@ -35,15 +30,26 @@ export const getPage = async (id) => {
 
 export const createPage = async (values) => {
   try {
-    if (values.id) {
+    if (values.id || values.id === "") {
       delete values.id;
     }
+
     if (!values.title || !values.authorId) {
       throw new Error("Title, and author ID are required");
     }
+
+    const authorId = parseInt(values.authorId, 10);
+    if (isNaN(authorId)) {
+      throw new Error("Invalid author ID");
+    }
+
     const page = await Page.create({
-      ...values,
-      slug: generateSlug(values.title),
+      slug: values.slug || generateSlug(values.title),
+      title: values.title,
+      type: values.type || "default",
+      template: values.template || null,
+      parentId: values.parentId || null,
+      authorId: authorId,
     });
     return page;
   } catch (err) {
@@ -54,8 +60,17 @@ export const createPage = async (values) => {
 
 export const updatePage = async (values) => {
   try {
-    const { id } = values;
-    const affectedRows = await Page.update(values, { where: { id } });
+    const { id, slug, ...rest } = values;
+
+    const updatedSlug = slug || generateSlug(rest.title);
+
+    const affectedRows = await Page.update(
+      {
+        ...rest,
+        slug: updatedSlug,
+      },
+      { where: { id } }
+    );
     return affectedRows;
   } catch (err) {
     console.error("Failed to update page:", err);

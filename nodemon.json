@@ -1,5 +1,7 @@
 {
   "watch": [
+    "src/controllers",
+    "src/middlewares",
     "src/models",
     "src/routes",
     "src/services",

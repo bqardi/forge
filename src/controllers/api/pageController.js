@@ -6,10 +6,6 @@ export async function createPageController(req, res) {
       return res.status(400).json({ message: "Title is required" });
     }
 
-    if (!req.body.slug) {
-      return res.status(400).json({ message: "Slug is required" });
-    }
-
     const affectedRows = await createPage(req.body);
 
     if (affectedRows === -1)
@@ -20,7 +16,6 @@ export async function createPageController(req, res) {
 
     res.status(200).json({ message: "Page updated successfully" });
   } catch (err) {
-    console.error("Failed to update page:", err);
     res.status(500).json({ message: "Internal server error" });
   }
 }
@@ -29,10 +24,6 @@ export async function updatePageController(req, res) {
   try {
     if (!req.body.title) {
       return res.status(400).json({ message: "Title is required" });
-    }
-
-    if (!req.body.slug) {
-      return res.status(400).json({ message: "Slug is required" });
     }
 
     const affectedRows = await updatePage(req.body);

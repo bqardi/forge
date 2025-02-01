@@ -1,4 +1,5 @@
 import { getPage, getPages } from "../../services/page.js";
+import { formatDate } from "../../utils/date.js";
 
 export async function pagesController(req, res) {
   const allPages = await getPages();
@@ -15,23 +16,38 @@ export async function pagesController(req, res) {
 }
 
 export async function pageController(req, res) {
-  const id = req.params.id;
+  const reqID = req.params.id;
+
+  // TODO: Fetch page types from database
+  const types = [
+    { key: "default", value: "Default" },
+    { key: "frontpage", value: "Frontpage" },
+  ];
 
   let data = {
-    id,
+    reqID,
     user: req.user,
+    types,
   };
 
-  if (id !== "create") {
-    const page = await getPage(id);
+  if (reqID !== "create") {
+    const page = await getPage(reqID);
     data = {
       ...data,
       ...page,
+      status: ["Published", "Draft"][0], // TODO: Implement page status (Published/Draft/(other?))
+      publishedAt: formatDate(page.createdAt, {
+        year: "numeric",
+        month: "short",
+        day: "2-digit",
+        hour: "numeric",
+        minute: "numeric",
+      }),
     };
   }
 
   res.render("pages/page", {
-    id,
+    id: reqID,
     page: "pages",
     layoutType: "single",
     type: "page",
