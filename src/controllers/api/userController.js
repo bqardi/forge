@@ -11,7 +11,7 @@ export async function updateUserController(req, res) {
       return res.status(404).json({ message: "User not found" });
     }
 
-    await hook.action(event.onRouteBackend, "api");
+    await hook.action(event.onRouteBackend, "user-update");
     res.status(200).json({ message: "Profile updated successfully" });
   } catch (err) {
     console.error("Failed to update profile:", err);

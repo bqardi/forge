@@ -1,4 +1,5 @@
 import { createPage, updatePage } from "../../services/page.js";
+import { event, hook } from "../../utils/hookManager/index.js";
 
 export async function createPageController(req, res) {
   try {
@@ -14,6 +15,7 @@ export async function createPageController(req, res) {
       return res.status(404).json({ message: "User not found" });
     }
 
+    await hook.action(event.onRouteBackend, "page-create");
     res.status(200).json({ message: "Page updated successfully" });
   } catch (err) {
     res.status(500).json({ message: "Internal server error" });
@@ -34,6 +36,7 @@ export async function updatePageController(req, res) {
       return res.status(404).json({ message: "User not found" });
     }
 
+    await hook.action(event.onRouteBackend, "page-update");
     res.status(200).json({ message: "Page updated successfully" });
   } catch (err) {
     console.error("Failed to update page:", err);

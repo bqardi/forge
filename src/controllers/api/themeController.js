@@ -1,4 +1,5 @@
 import { setSetting } from "../../services/setting.js";
+import { event, hook } from "../../utils/hookManager/index.js";
 import { initializeTheme } from "../../utils/themeHandler.js";
 
 export async function themeToggleController(req, res) {
@@ -13,6 +14,7 @@ export async function themeToggleController(req, res) {
 
     !isActive && (await initializeTheme(theme));
 
+    await hook.action(event.onRouteBackend, "theme-toggle", setting);
     res.status(200).json({ message: "Theme updated successfully" });
   } catch (err) {
     console.error("Failed to update theme:", err);

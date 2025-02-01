@@ -1,4 +1,5 @@
 import { createPost, updatePost } from "../../services/post.js";
+import { event, hook } from "../../utils/hookManager/index.js";
 
 export async function createPostController(req, res) {
   try {
@@ -14,6 +15,7 @@ export async function createPostController(req, res) {
       return res.status(404).json({ message: "User not found" });
     }
 
+    await hook.action(event.onRouteBackend, "post-create");
     res.status(200).json({ message: "Post updated successfully" });
   } catch (err) {
     console.error("Failed to update post:", err);
@@ -35,6 +37,7 @@ export async function updatePostController(req, res) {
       return res.status(404).json({ message: "User not found" });
     }
 
+    await hook.action(event.onRouteBackend, "post-update");
     res.status(200).json({ message: "Post updated successfully" });
   } catch (err) {
     console.error("Failed to update post:", err);

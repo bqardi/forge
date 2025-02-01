@@ -18,3 +18,11 @@ hook.register(
   },
   10
 );
+
+hook.register(
+  event.onRouteFrontend,
+  async (event, page) => {
+    console.log({ event, page, message: "On Route Frontend by USER" });
+  },
+  10
+);

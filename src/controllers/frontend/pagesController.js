@@ -1,8 +1,9 @@
 import fs from "fs";
 import path from "path";
 import Page from "../../models/Page.js";
+import { event, hook } from "../../utils/hookManager/index.js";
 
-export async function pagesController(req, res) {
+export async function frontpageController(req, res) {
   const theme = req.theme;
   if (!theme.name) {
     return res.status(500).send("No active theme found");
@@ -16,6 +17,7 @@ export async function pagesController(req, res) {
   const renderPath = path.join(theme.path, "views", "index.ejs");
   const themeLayout = path.join(theme.path, "views", "layout.ejs");
 
+  await hook.action(event.onRouteFrontend, "frontpage", page.dataValues);
   res.render(renderPath, {
     layout: fs.existsSync(themeLayout) ? themeLayout : false,
     page: page.dataValues,
@@ -42,6 +44,7 @@ export async function pageController(req, res) {
 
   const themeLayout = path.join(theme.path, "views", "layout.ejs");
 
+  await hook.action(event.onRouteFrontend, "page", page.dataValues);
   res.render(renderPath, {
     layout: fs.existsSync(themeLayout) ? themeLayout : false,
     page: page.dataValues,
