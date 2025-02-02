@@ -1,7 +1,7 @@
 <div>
   <div class="flex justify-between items-start">
     <div>
-      <h1 class="page-title">Plugins</h1>
+      <h1 class="page-title">Installed plugins</h1>
       <p>This is the plugins <%= layoutType %></p>
     </div>
     <a
@@ -12,7 +12,7 @@
 
   <div class="mt-5">
     <%-
-      include('../components/table', {
+      include('../../components/table', {
         data: data.plugins.map((plugin) => {
           return {
             ...plugin,

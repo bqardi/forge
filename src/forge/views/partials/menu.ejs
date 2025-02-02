@@ -9,13 +9,16 @@
   ];
   const configuration = [
     { href: "/forge/appearance", label: "Appearance", icon: "appearance", page: "appearance", child: "themes" },
-    { href: "/forge/plugins", label: "Plugins", icon: "plugins", page: "plugins" },
+    { href: "/forge/plugins", label: "Plugins", icon: "plugins", page: "plugins", child: "installed" },
     { href: "/forge/users", label: "Users", icon: "users", page: "users" },
     { href: "/forge/settings", label: "Settings", icon: "settings", page: "settings", child: "general" },
   ];
   const childPages = [
     { href: "/forge/appearance/themes", label: "Themes", icon: "themes", page: "themes", parent: "appearance" },
     { href: "/forge/settings/general", label: "General", icon: "general", page: "general", parent: "settings" },
+    { href: "/forge/plugins/installed", label: "Installed plugins", icon: "general", page: "installed", parent: "plugins" },
+    { href: "/forge/plugins/browse", label: "Browse plugins", icon: "general", page: "browse", parent: "plugins" },
+    { href: "/forge/plugins/upload", label: "Upload plugins", icon: "general", page: "upload", parent: "plugins" },
   ];
 %>
 
@@ -69,7 +72,7 @@
     class="flex items-center gap-2 mb-8 text-zinc-400 hover:text-white hover:bg-zinc-700 px-3.5 py-2 rounded-md [&.active]:cursor-default [&.active]:text-white [&.active]:bg-amber-800 <%= page === "dashboard" && "active" %>"
     href="/forge"
   >
-    <%- include("../components/icon", {icon: "dashboard"}) %><%= "Dashboard" %>
+    <%- include("../components/icon", {icon: "dashboard"}) %>Dashboard
   </a>
 
   <h2 class="text-lg font-semibold px-3 mb-5" data-title>

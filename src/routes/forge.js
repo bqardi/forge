@@ -13,7 +13,12 @@ import {
   userController,
   usersController,
 } from "../controllers/forge/usersController.js";
-import { pluginsController } from "../controllers/forge/pluginsController.js";
+import {
+  browseController,
+  installedController,
+  pluginsController,
+  uploadController,
+} from "../controllers/forge/pluginsController.js";
 import {
   appearanceController,
   themesController,
@@ -36,6 +41,9 @@ router.get("/posts/:id", authenticateToken, postController);
 router.get("/users", authenticateToken, usersController);
 router.get("/users/:id", authenticateToken, userController);
 router.get("/plugins", authenticateToken, pluginsController);
+router.get("/plugins/installed", authenticateToken, installedController);
+router.get("/plugins/browse", authenticateToken, browseController);
+router.get("/plugins/upload", authenticateToken, uploadController);
 router.get("/appearance", authenticateToken, appearanceController);
 router.get("/appearance/themes", authenticateToken, themesController);
 router.get("/settings", authenticateToken, settingsController);

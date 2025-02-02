@@ -194,3 +194,60 @@ export default router;
 ```
 
 By organizing your routes, middleware, and API endpoints in this way, you can maintain a clean and modular structure for your application.
+
+## Good to know
+
+### Create new subpage
+
+In this example we will create a new subpage under the "Appearance" page in the Forge dashboard.
+
+1. Create a new file in `src/forge/views/pages/appearance` called `newSubpage.ejs`.
+2. Add the content for the new subpage in the `newSubpage.ejs` file.
+3. Create a new controller in `src/controllers/forge/appearanceController.js`:
+
+```javascript
+// filepath: src/controllers/forge/appearanceController.js
+export const newSubpageController = (req, res) => {
+  res.render("pages/appearance/newSubpage", {
+    page: "newSubpage",
+    parent: {
+      title: "Appearance",
+      page: "appearance",
+      link: "/forge/appearance",
+    },
+    layoutType: "grid",
+    data: {
+      something: "Any js data can be passed to the rendered view",
+    },
+  });
+};
+```
+
+4. Create a new route in `src/routes/forge.js`:
+
+```javascript
+// filepath: src/routes/forge.js
+import {
+  appearanceController,
+  themesController,
+  newSubpageController,
+} from "../controllers/forge/appearanceController.js";
+
+router.get("/appearance/new-sub-page", authenticateToken, newSubpageController);
+```
+
+5. Add a link to the new subpage in the `src/forge/views/partials/menu.ejs` file:
+
+```ejs
+<!-- filepath: src/forge/views/partials/menu.ejs -->
+
+<%
+const childPages = [
+  { href: "/forge/appearance/themes", label: "Themes", icon: "themes", page: "themes", parent: "appearance" },
+  { href: "/forge/appearance/new-sub-page", label: "New Sub Page", icon: "some-icon", page: "new-sub-page", parent: "appearance" },
+  ...
+]
+%>
+```
+
+6. Navigate to the new subpage in the Forge dashboard to see it :-).
