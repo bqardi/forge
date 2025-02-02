@@ -50,6 +50,8 @@ export const createPage = async (values) => {
       template: values.template || null,
       parentId: values.parentId || null,
       authorId: authorId,
+      status: values.status || "draft",
+      publishedAt: new Date().toISOString(),
     });
     return page;
   } catch (err) {
@@ -60,14 +62,16 @@ export const createPage = async (values) => {
 
 export const updatePage = async (values) => {
   try {
-    const { id, slug, ...rest } = values;
+    const { id, slug, publishedAt, ...rest } = values;
 
     const updatedSlug = slug || generateSlug(rest.title);
+    const publishedAtDate = publishedAt || new Date().toISOString();
 
     const affectedRows = await Page.update(
       {
         ...rest,
         slug: updatedSlug,
+        publishedAt: publishedAtDate,
       },
       { where: { id } }
     );

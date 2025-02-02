@@ -2,7 +2,7 @@
   <thead>
     <tr>
       <% columns.forEach(column => { %>
-      <th class="text-left py-2 px-4 border-b border-gray-200"><%= column.name %></th>
+      <th class="text-left py-2 px-4 border-b border-gray-200"><%- column.name %></th>
       <% }) %>
     </tr>
   </thead>
@@ -11,14 +11,7 @@
     <tr class="border-b border-gray-200">
       <% columns.forEach(column => { %>
       <td class="py-2 px-4">
-        <% if (column.link) { %>
-          <a
-            href="<%= item[column.link] %>"
-            class="link"
-          ><%= item[column.key] %></a>
-        <% } else { %>
-          <%= item[column.key] %>
-        <% } %>
+        <%- item[column.key] %>
       </td>
       <% }) %>
     </tr>

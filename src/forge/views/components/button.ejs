@@ -1,15 +1,20 @@
 <%
   // Optional props
-  const { onclick, value, form, id, name, selector } = locals;
+  const { attributes = [], classname, value, form, id, name, selector, variation = "default" } = locals;
+  const variations = {
+    default: "bg-amber-700 hover:bg-amber-800 text-white",
+    outline: "border border-amber-700 text-amber-700 hover:bg-amber-800 hover:text-white",
+  }
 %>
 
 <button
-  class="bg-amber-700 hover:bg-amber-800 text-white py-2 px-5 rounded-md cursor-pointer"
+  class="<%= classname %> <%= variations[variation] %> py-2 px-5 rounded-md cursor-pointer"
   <%= id ? `id=${id}` : '' %>
   <%= name ? `name=${name}` : '' %>
   <%= value ? `value=${value}` : '' %>
   <%= form ? `form=${form}` : '' %>
   <%= selector ? `data-${selector}` : '' %>
+  <%- attributes.join(' ') %>
 >
   <%= label %>
 </button>

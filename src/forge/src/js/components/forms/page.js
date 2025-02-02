@@ -3,15 +3,30 @@ import { broadcaster } from "../broadcaster.js";
 (function () {
   const page = document.querySelector("[data-page]");
   if (!page) return;
+
   const formID = "form-page";
   const form = page.querySelector(`#${formID}`);
   if (!form) return;
+
+  const draftButton = document.querySelector("#drafter");
+  const publishButton = document.querySelector("#publisher");
+
+  draftButton.addEventListener("click", (e) => handleSubmitClick(e, form));
+  publishButton.addEventListener("click", (e) => handleSubmitClick(e, form));
+
   form.addEventListener("submit", handleSubmit);
   form.addEventListener("input", (e) => handleChange(e, page));
+
   document.querySelectorAll(`[form=${formID}]`).forEach((input) => {
     input.addEventListener("input", (e) => handleChange(e, page));
   });
 })();
+
+function handleSubmitClick(e, form) {
+  const statusSelect = form.status;
+  statusSelect.value = e.currentTarget.dataset.status;
+  form.dispatchEvent(new Event("submit"));
+}
 
 async function handleSubmit(e) {
   e.preventDefault();

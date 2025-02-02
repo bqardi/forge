@@ -16,13 +16,13 @@
         data: data.posts.map((post) => {
           return {
             ...post,
-            url: `/forge/posts/${post.id}`,
+            title: `<a href="/forge/posts/${post.id}" class="link">${post.title}</a>`,
             authorName: data.user.username,
             createdAt: new Date(post.createdAt).toLocaleDateString()
           }
         }),
         columns: [
-          {name: "Title", key: "title", link: "url"},
+          {name: "Title", key: "title"},
           {name: "Link", key: "slug"},
           {name: "Author", key: "authorName"},
           {name: "Date created", key: "createdAt"},

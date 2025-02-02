@@ -1,6 +1,7 @@
-<% 
-  const draftClass = data.status === "Draft" ? "text-zinc-400" : "";
-  const publishedClass = data.status === "Published" ? "text-green-600" : "";
+<%
+  const publishedAt = new Date(data.publishedAt).toLocaleDateString();
+  const draftClass = data.status === "draft" ? "text-zinc-400" : "";
+  const publishedClass = data.status === "published" ? "text-green-600" : "";
 %>
 
 <div>
@@ -10,17 +11,38 @@
       Status:
       <span
         class="font-semibold <%= draftClass + publishedClass %>"
-      ><%= data.status %></span>
+      ><%= data.statusPropercase %></span>
     </p>
-    <p class="text-sm">Published: <span class="font-semibold"><%- data.publishedAt %></span></p>
+    <p class="text-sm">Published: <span class="font-semibold"><%- publishedAt %></span></p>
   </div>
-  <div class="flex justify-end">
+  <div class="flex justify-end gap-2">
     <%-
       include("../components/button", {
-        label: id === "create" ? "Create" : "Update",
-        name: "publisher",
+        label: "Draft",
+        name: "drafter",
+        id: "drafter",
         value: id,
         form: `form-${type}`,
+        classname: "grow",
+        attributes: [
+          "data-status=draft",
+          "type=button",
+        ],
+        variation: "outline",
+      })
+    %>
+    <%-
+      include("../components/button", {
+        label: id === "create" || data.status === "draft" ? "Publish" : "Update",
+        name: "publisher",
+        id: "publisher",
+        value: id,
+        form: `form-${type}`,
+        classname: "grow",
+        attributes: [
+          "data-status=published",
+          "type=button",
+        ],
       })
     %>
   </div>

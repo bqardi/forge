@@ -9,6 +9,7 @@
     "browser-sync": "browser-sync start -p localhost:3210 -f \"src/forge/views/**/*.ejs, src/forge/views/**/*.html, src/forge/assets/*.css\" --no-notify --no-open",
     "db:adduser": "node src/utils/scripts/addUser.js",
     "db:deleteuser": "node src/utils/scripts/deleteUser.js",
+    "sequelize:add": "node scripts/sequelize-add-datatype.js",
     "start": "node src/server.js",
     "build": "npm --prefix src/forge run build"
   },

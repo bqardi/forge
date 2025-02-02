@@ -7,6 +7,10 @@ export function generateSlug(title) {
 
 export function prettifySlug(slug) {
   return slug.replace(/-/g, " ").replace(/\w\S*/g, (txt) => {
-    return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();
+    return firstCharacterToUppercase(txt);
   });
+}
+
+export function firstCharacterToUppercase(str) {
+  return str.charAt(0).toUpperCase() + str.slice(1);
 }

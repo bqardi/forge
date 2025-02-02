@@ -37,6 +37,15 @@ const Page = sequelize.define("Page", {
       key: "id",
     },
   },
+  status: {
+    type: DataTypes.STRING,
+    allowNull: true,
+    defaultValue: "draft",
+  },
+  publishedAt: {
+    type: DataTypes.DATE,
+    allowNull: true,
+  },
 });
 
 Page.belongsTo(User, { foreignKey: "authorId", as: "author" });

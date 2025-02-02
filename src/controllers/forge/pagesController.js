@@ -1,6 +1,7 @@
 import { getPage, getPages } from "../../services/page.js";
 import { formatDate } from "../../utils/date.js";
 import { event, hook } from "../../utils/hookManager/index.js";
+import { firstCharacterToUppercase } from "../../utils/stringHandler.js";
 
 export async function pagesController(req, res) {
   const allPages = await getPages();
@@ -39,14 +40,7 @@ export async function pageController(req, res) {
     data = {
       ...data,
       ...page,
-      status: ["Published", "Draft"][0], // TODO: Implement page status (Published/Draft/(other?))
-      publishedAt: formatDate(page.createdAt, {
-        year: "numeric",
-        month: "short",
-        day: "2-digit",
-        hour: "numeric",
-        minute: "numeric",
-      }),
+      statusPropercase: firstCharacterToUppercase(page.status),
     };
   }
 

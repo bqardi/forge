@@ -34,4 +34,20 @@
       ],
     })
   %>
+  <%-
+    include("../../components/form/select", {
+      classname: "shrink",
+      label: "Status",
+      id: "status",
+      name: "status",
+      values: [
+        {key: "draft", value: "Draft"},
+        {key: "published", value: "Published"}
+      ],
+      selected: data.status || "draft",
+      attributes: [
+        `form=${formID}`,
+      ],
+    })
+  %>
 </div>

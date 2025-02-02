@@ -20,6 +20,7 @@
   </div>
 
   <form class="mt-5" id="<%= formID %>">
+    <input type="hidden" name="publishedAt" value="<%= data.publishedAt %>" />
     <%-
       include("../components/form/input", {
         type: "hidden",

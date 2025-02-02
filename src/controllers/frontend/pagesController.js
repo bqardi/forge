@@ -37,6 +37,10 @@ export async function pageController(req, res) {
     return res.status(404).send("Page not found");
   }
 
+  if (page.dataValues.status !== "published") {
+    return res.status(404).send("Page not found");
+  }
+
   const renderPath = path.join(theme.path, "views", "page.ejs");
   if (!renderPath) {
     return res.status(404).send("Template not found");

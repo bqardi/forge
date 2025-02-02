@@ -20,6 +20,15 @@ const Post = sequelize.define("Post", {
       key: "id",
     },
   },
+  status: {
+    type: DataTypes.STRING,
+    allowNull: true,
+    defaultValue: "draft",
+  },
+  publishedAt: {
+    type: DataTypes.DATE,
+    allowNull: true,
+  },
 });
 
 Post.belongsTo(User, { foreignKey: "authorId", as: "author" });
