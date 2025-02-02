@@ -1,5 +1,5 @@
 import express from "express";
-import { authenticateToken } from "../utils/auth.js";
+import { authenticateToken } from "../middlewares/auth.js";
 import { updateUserController } from "../controllers/api/userController.js";
 import {
   createPostController,
