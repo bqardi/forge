@@ -1,10 +1,39 @@
 import { responseNotifier } from "../../utilities.js";
 
 (function () {
-  const form = document.getElementById("form-user");
+  const user = document.querySelector("[data-user]");
+  if (!user) return;
+
+  const formID = "form-user";
+  const form = user.querySelector(`#${formID}`);
   if (!form) return;
+
+  const publishButton = document.querySelector("#publisher");
+  const deleteButton = document.querySelector("#deleter");
+
+  publishButton.addEventListener("click", (e) => handleSubmitClick(e, form));
+  deleteButton.addEventListener("click", (e) => handleDeleteClick(e, form));
+
   form.addEventListener("submit", handleSubmit);
 })();
+
+async function handleDeleteClick(e, form) {
+  const id = form.deleter.value;
+  const method = "DELETE";
+
+  const response = await fetch(`/api/user/${id}`, {
+    method,
+  });
+
+  const ok = await responseNotifier(response);
+  if (ok) {
+    window.location.href = "/forge/users";
+  }
+}
+
+function handleSubmitClick(e, form) {
+  form.dispatchEvent(new Event("submit"));
+}
 
 async function handleSubmit(e) {
   e.preventDefault();
@@ -25,5 +54,8 @@ async function handleSubmit(e) {
     body: JSON.stringify(json),
   });
 
-  responseNotifier(response);
+  const ok = await responseNotifier(response);
+  if (ok) {
+    window.location.href = "/forge/users";
+  }
 }

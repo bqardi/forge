@@ -9,10 +9,8 @@ export async function createPageController(req, res) {
 
     const affectedRows = await createPage(req.body);
 
-    if (affectedRows === -1)
-      return res.status(200).json({ message: "Nothing to update" });
     if (affectedRows === 0) {
-      return res.status(404).json({ message: "Page not found" });
+      return res.status(500).json({ message: "Internal server error" });
     }
 
     await hook.action(event.onRouteBackend, "page-create");
@@ -59,7 +57,7 @@ export async function deletePageController(req, res) {
     const affectedRows = await deletePage(id);
 
     if (affectedRows === 0) {
-      return res.status(404).json({ message: "Page not found" });
+      return res.status(500).json({ message: "Internal server error" });
     }
 
     await hook.action(event.onRouteBackend, "page-delete");

@@ -70,6 +70,5 @@ export async function pageController(req, res) {
         reqID === "create" || data.status === "draft" ? "Publish" : "Update",
     },
     data,
-    session: req.session,
   });
 }

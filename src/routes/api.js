@@ -1,6 +1,10 @@
 import express from "express";
 import { authenticateToken } from "../middlewares/auth.js";
-import { updateUserController } from "../controllers/api/userController.js";
+import {
+  createUserController,
+  deleteUserController,
+  updateUserController,
+} from "../controllers/api/userController.js";
 import {
   createPostController,
   deletePostController,
@@ -17,7 +21,9 @@ import { logoutController } from "../controllers/api/logoutController.js";
 const router = express.Router();
 
 router.post("/logout", authenticateToken, logoutController);
+router.post("/user", authenticateToken, createUserController);
 router.put("/user", authenticateToken, updateUserController);
+router.delete("/user/:id", authenticateToken, deleteUserController);
 router.post("/post", authenticateToken, createPostController);
 router.put("/post", authenticateToken, updatePostController);
 router.delete("/post/:id", authenticateToken, deletePostController);

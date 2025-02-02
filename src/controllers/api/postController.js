@@ -9,10 +9,8 @@ export async function createPostController(req, res) {
 
     const affectedRows = await createPost(req.body);
 
-    if (affectedRows === -1)
-      return res.status(200).json({ message: "Nothing to update" });
     if (affectedRows === 0) {
-      return res.status(404).json({ message: "User not found" });
+      return res.status(500).json({ message: "Internal server error" });
     }
 
     await hook.action(event.onRouteBackend, "post-create");
@@ -60,7 +58,7 @@ export async function deletePostController(req, res) {
     const affectedRows = await deletePost(id);
 
     if (affectedRows === 0) {
-      return res.status(404).json({ message: "Post not found" });
+      return res.status(500).json({ message: "Internal server error" });
     }
 
     await hook.action(event.onRouteBackend, "post-delete");

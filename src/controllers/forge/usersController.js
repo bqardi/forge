@@ -2,19 +2,22 @@ import { getUsers, getUser } from "../../services/user.js";
 import { event, hook } from "../../utils/hookManager/index.js";
 
 export async function usersController(req, res) {
-  try {
-    const users = await getUsers();
+  const users = await getUsers();
 
-    await hook.action(event.onRouteBackend, "users");
+  await hook.action(event.onRouteBackend, "users");
 
-    res.render("pages/users", {
-      page: "users",
-      layoutType: "overview",
-      users,
-    });
-  } catch (err) {
-    res.status(500).send("Internal server error");
-  }
+  const notification = req.session.notification || null;
+  req.session.notification = null;
+
+  res.render("pages/users", {
+    page: "users",
+    layoutType: "overview",
+    users,
+    session: {
+      ...req.session,
+      notification,
+    },
+  });
 }
 
 export async function userController(req, res) {
@@ -39,6 +42,12 @@ export async function userController(req, res) {
     page: "users",
     layoutType: "single",
     type: "user",
+    formID: "form-user",
+    settings: {
+      active: true,
+      title: "User settings",
+      partial: "user",
+    },
     publisher: {
       title: "Update user",
       draft: "",

@@ -2,11 +2,11 @@
   const createdAt = new Date(data.createdAt).toLocaleDateString();
 %>
 
-<div>
+<div data-user>
   <h1 class="page-title">User (<%= data.username %>)</h1>
   <p>Created at <%= createdAt %></p>
   
-  <form class="mt-5" id="form-user">
+  <form class="mt-5" id="<%= formID %>">
     <%-
       include("../components/form/input", {
         type: "hidden",

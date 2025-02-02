@@ -5,22 +5,7 @@
 
 <div data-component-content="<%= formID %>">
   <div class="p-8 flex flex-wrap gap-3.5">
-    <%-
-      include("../../components/form/select", {
-        classname: "shrink",
-        label: "Status",
-        id: "status",
-        name: "status",
-        values: [
-          {key: "draft", value: "Draft"},
-          {key: "published", value: "Published"}
-        ],
-        selected: data.status || "draft",
-        attributes: [
-          `form=${formID}`,
-        ],
-      })
-    %>
+    Nothing here yet
   </div>
   <div class="p-8 flex flex-wrap gap-3.5">
     <%-

@@ -1,6 +1,11 @@
+<%
+  const { session } = locals;
+%>
+
+<%- include('../components/session-input', { session }) %>
+
 <div>
   <h1 class="page-title">Users</h1>
-  <p>This is the users <%= layoutType %></p>
 
   <div class="mt-5 overflow-hidden border border-gray-300 rounded-md">
     <%- 

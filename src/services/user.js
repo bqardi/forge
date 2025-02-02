@@ -64,6 +64,10 @@ export const updateUser = async (values) => {
 
 export const deleteUser = async (id) => {
   try {
+    const allUserCount = await User.count({ distinct: true, col: "id" });
+    if (allUserCount === 1) {
+      return -1;
+    }
     const affectedRows = await User.destroy({ where: { id } });
     return affectedRows;
   } catch (err) {
