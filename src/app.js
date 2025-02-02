@@ -10,6 +10,7 @@ import { filemap } from "./middlewares/filemap.js";
 import { setLocals } from "./middlewares/setLocals.js";
 import path from "path";
 import { fileURLToPath } from "url";
+import { noCache } from "./middlewares/cacheControl.js";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
@@ -35,6 +36,10 @@ export async function initializeApp() {
   // EJS views
   app.set("views", path.join(__dirname, "forge", "views"));
   app.set("view engine", "ejs");
+
+  // Cache control
+  app.use("/login", noCache);
+  app.use("/forge", noCache);
 
   // Routes
   await hook.action(event.beforeRouteBackend);

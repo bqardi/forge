@@ -1,7 +1,7 @@
 <div class="grid place-content-center h-screen">
   <h1 class="text-4xl font-semibold mb-2"><%= title %></h1>
   <p class="text-lg mb-8"><%= content %></p>
-  <form class="flex flex-col gap-8 min-w-[260px]" data-forge-login-form>
+  <form class="flex flex-col gap-8 min-w-[260px]" autocomplete="off" data-forge-login-form>
     <%-
       include("./components/form/input", {
         label: "Enter username",
@@ -13,6 +13,7 @@
           "required",
           `data-required="Username is required"`,
           "autofocus",
+          "autocomplete=new-username",
         ],
       })
     %>
@@ -25,6 +26,7 @@
           "placeholder=Password",
           "required",
           `data-required="Password is required"`,
+          "autocomplete=new-password",
         ],
       })
     %>
