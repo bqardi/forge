@@ -23,8 +23,24 @@ export const getUser = async (id) => {
 
 export const createUser = async (values) => {
   try {
-    const user = await User.create(values);
-    return user;
+    if (values.id || values.id === "") {
+      delete values.id;
+    }
+
+    const { username, password } = values;
+
+    if (await User.findOne({ where: { username } })) {
+      return -1;
+    }
+
+    const hashedPassword = await bcrypt.hash(password, 10);
+
+    const affectedRows = await User.create({
+      ...values,
+      password: hashedPassword,
+    });
+
+    return affectedRows;
   } catch (err) {
     console.error("Failed to create user:", err);
     throw err;

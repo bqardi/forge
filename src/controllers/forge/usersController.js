@@ -21,14 +21,14 @@ export async function usersController(req, res) {
 }
 
 export async function userController(req, res) {
-  const id = req.params.id;
+  const reqID = req.params.id;
 
   let data = {
-    id,
+    reqID,
   };
 
-  if (id !== "create") {
-    const user = await getUser(id);
+  if (reqID !== "create") {
+    const user = await getUser(reqID);
     data = {
       ...data,
       ...user.dataValues,
@@ -38,7 +38,7 @@ export async function userController(req, res) {
   await hook.action(event.onRouteBackend, "user");
 
   res.render("pages/user", {
-    id,
+    id: reqID,
     page: "users",
     layoutType: "single",
     type: "user",
@@ -51,7 +51,7 @@ export async function userController(req, res) {
     publisher: {
       title: "Update user",
       draft: "",
-      publish: "Update user",
+      publish: reqID === "create" ? "Create user" : "Update user",
     },
     data,
   });

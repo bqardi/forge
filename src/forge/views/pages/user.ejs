@@ -16,9 +16,37 @@
       })
     %>
     <%-
+      include("../components/form/input", {
+        classname: id === "create" ? "mb-8" : "hidden",
+        label: "Username",
+        type: "text",
+        id: "username",
+        name: "username",
+        value: data.username,
+        attributes: [
+          "placeholder=Username",
+          "required",
+          `data-required="Username is required"`,
+        ],
+      })
+    %>
+    <%-
+      include("../components/form/input", {
+        classname: id === "create" ? "mb-8" : "hidden",
+        label: "Email",
+        type: "email",
+        id: "email",
+        name: "email",
+        value: data.email,
+        attributes: [
+          "placeholder=Email",
+        ],
+      })
+    %>
+    <%-
       include("../components/form/input-password", {
         classname: "mb-8",
-        label: "Change password",
+        label: id === "create" ? "Password" : "Change password",
         id: "password",
         name: "password",
         attributes: [
