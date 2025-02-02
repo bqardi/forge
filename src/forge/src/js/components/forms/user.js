@@ -1,4 +1,4 @@
-import { broadcaster } from "../broadcaster.js";
+import { responseNotifier } from "../../utilities.js";
 
 (function () {
   const form = document.getElementById("form-user");
@@ -25,19 +25,5 @@ async function handleSubmit(e) {
     body: JSON.stringify(json),
   });
 
-  const { message } = await response.json();
-
-  if (response.ok) {
-    broadcaster.emit("notify", {
-      type: "success",
-      title: `Success ${response.status} - ${response.statusText}`,
-      message,
-    });
-  } else {
-    broadcaster.emit("notify", {
-      type: "error",
-      title: `Error ${response.status} - ${response.statusText}`,
-      message,
-    });
-  }
+  responseNotifier(response);
 }

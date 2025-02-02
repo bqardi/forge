@@ -39,6 +39,11 @@ export async function userController(req, res) {
     page: "users",
     layoutType: "single",
     type: "user",
+    publisher: {
+      title: "Update user",
+      draft: "",
+      publish: "Update user",
+    },
     data,
   });
 }

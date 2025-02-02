@@ -1,5 +1,6 @@
 import { getPost, getPosts } from "../../services/post.js";
 import { event, hook } from "../../utils/hookManager/index.js";
+import { firstCharacterToUppercase } from "../../utils/stringHandler.js";
 
 export async function postsController(req, res) {
   const allPosts = await getPosts();
@@ -8,6 +9,9 @@ export async function postsController(req, res) {
 
   await hook.action(event.onRouteBackend, "posts");
 
+  const notification = req.session.notification || null;
+  req.session.notification = null;
+
   res.render("pages/posts", {
     page: "posts",
     layoutType: "overview",
@@ -15,32 +19,49 @@ export async function postsController(req, res) {
       user,
       posts,
     },
+    session: {
+      ...req.session,
+      notification,
+    },
   });
 }
 
 export async function postController(req, res) {
-  const id = req.params.id;
+  const reqID = req.params.id;
 
   let data = {
-    id,
+    reqID,
     user: req.user,
   };
 
-  if (id !== "create") {
-    const post = await getPost(id);
+  if (reqID !== "create") {
+    const post = await getPost(reqID);
     data = {
       ...data,
       ...post.dataValues,
+      statusPropercase: firstCharacterToUppercase(post.status),
     };
   }
 
   await hook.action(event.onRouteBackend, "childposts");
 
   res.render("pages/post", {
-    id,
+    id: reqID,
     page: "posts",
     layoutType: "single",
     type: "post",
+    formID: "form-post",
+    settings: {
+      active: true,
+      title: "Post settings",
+      partial: "post",
+    },
+    publisher: {
+      title: "Update post",
+      draft: "Draft",
+      publish:
+        reqID === "create" || data.status === "draft" ? "Publish" : "Update",
+    },
     data,
   });
 }

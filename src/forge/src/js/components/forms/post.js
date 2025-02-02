@@ -1,14 +1,50 @@
-import { broadcaster } from "../broadcaster.js";
+import { responseNotifier } from "../../utilities.js";
 
 (function () {
-  const form = document.getElementById("form-post");
+  const post = document.querySelector("[data-post]");
+  if (!post) return;
+
+  const formID = "form-post";
+  const form = post.querySelector(`#${formID}`);
   if (!form) return;
+
+  const draftButton = document.querySelector("#drafter");
+  const publishButton = document.querySelector("#publisher");
+  const deleteButton = document.querySelector("#deleter");
+
+  draftButton.addEventListener("click", (e) => handleSubmitClick(e, form));
+  publishButton.addEventListener("click", (e) => handleSubmitClick(e, form));
+  deleteButton.addEventListener("click", (e) => handleDeleteClick(e, form));
+
   form.addEventListener("submit", handleSubmit);
+  form.addEventListener("input", (e) => handleChange(e, post));
+
+  document.querySelectorAll(`[form=${formID}]`).forEach((input) => {
+    input.addEventListener("input", (e) => handleChange(e, post));
+  });
 })();
 
-async function handleSubmit(e) {
-  e.preventDefault();
+async function handleDeleteClick(e, form) {
+  const id = form.deleter.value;
+  const method = "DELETE";
 
+  const response = await fetch(`/api/post/${id}`, {
+    method,
+  });
+
+  const ok = await responseNotifier(response);
+  if (ok) {
+    window.location.href = "/forge/posts";
+  }
+}
+
+function handleSubmitClick(e, form) {
+  const statusSelect = form.status;
+  statusSelect.value = e.currentTarget.dataset.status;
+  form.dispatchEvent(new Event("submit"));
+}
+
+async function handleSubmit(e) {
   if (!e.target.checkValidity()) return;
 
   const id = e.target.publisher.value;
@@ -25,19 +61,16 @@ async function handleSubmit(e) {
     body: JSON.stringify(json),
   });
 
-  const { message } = await response.json();
-
-  if (response.ok) {
-    broadcaster.emit("notify", {
-      type: "success",
-      title: `Success ${response.status} - ${response.statusText}`,
-      message,
-    });
-  } else {
-    broadcaster.emit("notify", {
-      type: "error",
-      title: `Error ${response.status} - ${response.statusText}`,
-      message,
-    });
+  const ok = await responseNotifier(response);
+  if (ok) {
+    window.location.href = "/forge/posts";
   }
+}
+
+function handleChange(e, post) {
+  if (e.target.name !== "slug") return;
+  const anchor = post.querySelector("[data-base-url]");
+  const url = anchor.dataset.baseUrl + e.target.value;
+  anchor.textContent = url;
+  anchor.href = url;
 }

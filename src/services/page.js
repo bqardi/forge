@@ -45,12 +45,10 @@ export const createPage = async (values) => {
 
     const page = await Page.create({
       slug: values.slug || generateSlug(values.title),
-      title: values.title,
       type: values.type || "default",
       template: values.template || null,
       parentId: values.parentId || null,
       authorId: authorId,
-      status: values.status || "draft",
       publishedAt: new Date().toISOString(),
     });
     return page;

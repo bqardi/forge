@@ -1,0 +1,8 @@
+<% if (session?.notification) { %>
+  <input
+    type="hidden"
+    id="sessionMessage"
+    value="<%= session.notification.message || '' %>"
+    data-type="<%= session.notification.type %>"
+  >
+<% } %>

@@ -1,4 +1,4 @@
-import { broadcaster } from "../broadcaster.js";
+import { responseNotifier } from "../../utilities.js";
 
 (function () {
   const page = document.querySelector("[data-page]");
@@ -10,9 +10,11 @@ import { broadcaster } from "../broadcaster.js";
 
   const draftButton = document.querySelector("#drafter");
   const publishButton = document.querySelector("#publisher");
+  const deleteButton = document.querySelector("#deleter");
 
   draftButton.addEventListener("click", (e) => handleSubmitClick(e, form));
   publishButton.addEventListener("click", (e) => handleSubmitClick(e, form));
+  deleteButton.addEventListener("click", (e) => handleDeleteClick(e, form));
 
   form.addEventListener("submit", handleSubmit);
   form.addEventListener("input", (e) => handleChange(e, page));
@@ -22,6 +24,20 @@ import { broadcaster } from "../broadcaster.js";
   });
 })();
 
+async function handleDeleteClick(e, form) {
+  const id = form.deleter.value;
+  const method = "DELETE";
+
+  const response = await fetch(`/api/page/${id}`, {
+    method,
+  });
+
+  const ok = await responseNotifier(response);
+  if (ok) {
+    window.location.href = "/forge/pages";
+  }
+}
+
 function handleSubmitClick(e, form) {
   const statusSelect = form.status;
   statusSelect.value = e.currentTarget.dataset.status;
@@ -29,8 +45,6 @@ function handleSubmitClick(e, form) {
 }
 
 async function handleSubmit(e) {
-  e.preventDefault();
-
   if (!e.target.checkValidity()) return;
 
   const id = e.target.publisher.value;
@@ -47,20 +61,9 @@ async function handleSubmit(e) {
     body: JSON.stringify(json),
   });
 
-  const { message } = await response.json();
-
-  if (response.ok) {
-    broadcaster.emit("notify", {
-      type: "success",
-      title: `Success ${response.status} - ${response.statusText}`,
-      message,
-    });
-  } else {
-    broadcaster.emit("notify", {
-      type: "error",
-      title: `Error ${response.status} - ${response.statusText}`,
-      message,
-    });
+  const ok = await responseNotifier(response);
+  if (ok) {
+    window.location.href = "/forge/pages";
   }
 }
 

@@ -1,5 +1,4 @@
 import { getPage, getPages } from "../../services/page.js";
-import { formatDate } from "../../utils/date.js";
 import { event, hook } from "../../utils/hookManager/index.js";
 import { firstCharacterToUppercase } from "../../utils/stringHandler.js";
 
@@ -10,12 +9,19 @@ export async function pagesController(req, res) {
 
   await hook.action(event.onRouteBackend, "pages");
 
+  const notification = req.session.notification || null;
+  req.session.notification = null;
+
   res.render("pages/pages", {
     page: "pages",
     layoutType: "overview",
     data: {
       user,
       pages,
+    },
+    session: {
+      ...req.session,
+      notification,
     },
   });
 }
@@ -57,6 +63,13 @@ export async function pageController(req, res) {
       title: "Page settings",
       partial: "page",
     },
+    publisher: {
+      title: "Update page",
+      draft: "Draft",
+      publish:
+        reqID === "create" || data.status === "draft" ? "Publish" : "Update",
+    },
     data,
+    session: req.session,
   });
 }

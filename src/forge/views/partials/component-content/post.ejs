@@ -8,33 +8,6 @@
     <%-
       include("../../components/form/select", {
         classname: "shrink",
-        label: "Type",
-        id: "type",
-        name: "type",
-        values: types || [],
-        selected: type || "",
-        attributes: [
-          `form=${formID}`,
-        ],
-      })
-    %>
-    <%-
-      include("../../components/form/input", {
-        classname: "shrink",
-        label: "Slug",
-        type: "text",
-        id: "slug",
-        name: "slug",
-        value: data.slug || "",
-        attributes: [
-          "placeholder=Slug",
-          `form=${formID}`,
-        ],
-      })
-    %>
-    <%-
-      include("../../components/form/select", {
-        classname: "shrink",
         label: "Status",
         id: "status",
         name: "status",

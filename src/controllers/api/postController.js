@@ -1,4 +1,4 @@
-import { createPost, updatePost } from "../../services/post.js";
+import { createPost, updatePost, deletePost } from "../../services/post.js";
 import { event, hook } from "../../utils/hookManager/index.js";
 
 export async function createPostController(req, res) {
@@ -16,7 +16,11 @@ export async function createPostController(req, res) {
     }
 
     await hook.action(event.onRouteBackend, "post-create");
-    res.status(200).json({ message: "Post updated successfully" });
+    req.session.notification = {
+      type: "success",
+      message: "Post created successfully!",
+    };
+    res.status(200).json({ message: req.session.notification.message });
   } catch (err) {
     console.error("Failed to update post:", err);
     res.status(500).json({ message: "Internal server error" });
@@ -38,7 +42,33 @@ export async function updatePostController(req, res) {
     }
 
     await hook.action(event.onRouteBackend, "post-update");
-    res.status(200).json({ message: "Post updated successfully" });
+    req.session.notification = {
+      type: "success",
+      message: "Post updated successfully!",
+    };
+    res.status(200).json({ message: req.session.notification.message });
+  } catch (err) {
+    console.error("Failed to update post:", err);
+    res.status(500).json({ message: "Internal server error" });
+  }
+}
+
+export async function deletePostController(req, res) {
+  try {
+    const id = req.params.id;
+
+    const affectedRows = await deletePost(id);
+
+    if (affectedRows === 0) {
+      return res.status(404).json({ message: "Post not found" });
+    }
+
+    await hook.action(event.onRouteBackend, "post-delete");
+    req.session.notification = {
+      type: "success",
+      message: "Post deleted successfully!",
+    };
+    res.status(200).json({ message: req.session.notification.message });
   } catch (err) {
     console.error("Failed to update post:", err);
     res.status(500).json({ message: "Internal server error" });

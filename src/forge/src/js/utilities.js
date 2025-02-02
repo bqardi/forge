@@ -1,3 +1,25 @@
+import { broadcaster } from "./components/broadcaster.js";
+
+export async function responseNotifier(response) {
+  const { message } = await response.json();
+
+  if (response.ok) {
+    broadcaster.emit("notify", {
+      type: "success",
+      title: `Success ${response.status} - ${response.statusText}`,
+      message,
+    });
+  } else {
+    broadcaster.emit("notify", {
+      type: "error",
+      title: `Error ${response.status} - ${response.statusText}`,
+      message,
+    });
+  }
+
+  return response.ok;
+}
+
 export function registerDuplicateIDs() {
   // Do not check for duplicate IDs in production (they should be taken care of in development!).
   if (process.env.NODE_ENV === "production") return;

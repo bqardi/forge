@@ -8,9 +8,10 @@ import expressLayouts from "express-ejs-layouts";
 import { event, hook } from "./utils/hookManager/index.js";
 import { filemap } from "./middlewares/filemap.js";
 import { setLocals } from "./middlewares/setLocals.js";
+import { noCache } from "./middlewares/cacheControl.js";
+import session from "express-session";
 import path from "path";
 import { fileURLToPath } from "url";
-import { noCache } from "./middlewares/cacheControl.js";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
@@ -18,6 +19,13 @@ export async function initializeApp() {
   const app = express();
 
   // Middlewares
+  app.use(
+    session({
+      secret: process.env.SESSION_SECRET,
+      resave: false,
+      saveUninitialized: true,
+    })
+  );
   await hook.action(event.beforeMiddleware);
   app.use(express.json());
   await hook.action(event.onMiddleware, "json");

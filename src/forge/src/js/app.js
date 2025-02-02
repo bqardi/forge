@@ -5,6 +5,7 @@ import "./components/rating.js";
 import "./components/dialog.js";
 import "./components/drawer.js";
 import "./components/toast.js";
+import "./components/session.js";
 import "./components/forms/post.js";
 import "./components/forms/page.js";
 import "./components/forms/user.js";

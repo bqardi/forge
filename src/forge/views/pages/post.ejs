@@ -1,12 +1,26 @@
 <%
   const createdAt = new Date(data.createdAt).toLocaleDateString();
+  const slugURL = data.slug && GET_URL(data.slug);
 %>
 
-<div>
-  <h1 class="page-title">Post</h1>
-  <p>This is a single post <%= layoutType %></p>
+<div data-post>
+  <div class="flex justify-between items-start">
+    <div>
+      <h1 class="page-title">Post</h1>
+      <p>
+        Link:
+        <a
+          class="link"
+          href="<%- slugURL %>"
+          target="_blank"
+          data-base-url="<%= GET_URL('/') %>"
+        ><%- slugURL %></a>
+      </p>
+    </div>
+  </div>
 
-  <form class="mt-5" id="form-post">
+  <form class="mt-5" id="<%= formID %>">
+    <input type="hidden" name="publishedAt" value="<%= data.publishedAt %>" />
     <%-
       include("../components/form/input", {
         type: "hidden",

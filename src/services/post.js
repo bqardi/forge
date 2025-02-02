@@ -23,15 +23,24 @@ export const getPost = async (id) => {
 
 export const createPost = async (values) => {
   try {
-    if (values.id) {
+    if (values.id || values.id === "") {
       delete values.id;
     }
+
     if (!values.title || !values.authorId) {
       throw new Error("Title, and author ID are required");
     }
+
+    const authorId = parseInt(values.authorId, 10);
+    if (isNaN(authorId)) {
+      throw new Error("Invalid author ID");
+    }
+
     const post = await Post.create({
       ...values,
-      slug: generateSlug(values.title),
+      slug: values.slug || generateSlug(values.title),
+      authorId,
+      publishedAt: new Date().toISOString(),
     });
     return post;
   } catch (err) {

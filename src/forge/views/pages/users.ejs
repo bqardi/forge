@@ -9,14 +9,14 @@
           const details = user.dataValues;
           return {
             ...details,
-            url: `/forge/users/${details.id}`,
-            emailurl: `mailto:${details.email}`,
+            username: `<a href="/forge/users/${details.id}" class="link">${details.username}</a>`,
+            email: `<a href="mailto:${details.email}" class="link">${details.email}</a>`,
             createdAt: new Date(details.createdAt).toLocaleDateString()
           }
         }),
         columns: [
-          {name: "Username", key: "username", link: "url"},
-          {name: "Email", key: "email", link: "emailurl"},
+          {name: "Username", key: "username"},
+          {name: "Email", key: "email"},
           {name: "Date created", key: "createdAt"},
         ]
       })

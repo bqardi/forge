@@ -5,35 +5,38 @@
 %>
 
 <div>
-  <h2 class="text-xl mb-2">Publish Page</h2>
+  <h2 class="text-xl mb-2"><%= publisher.title %></h2>
   <div class="mb-3.5">
     <p class="text-sm">
       Status:
       <span
-        class="font-semibold <%= draftClass + publishedClass %>"
+        class="font-semibold [&.published]:text-green-600 [&.draft]:text-zinc-400 <%= data.status %>"
+        data-status-ui
       ><%= data.statusPropercase %></span>
     </p>
     <p class="text-sm">Published: <span class="font-semibold"><%- publishedAt %></span></p>
   </div>
   <div class="flex justify-end gap-2">
+    <% if (publisher.draft) { %>
+      <%-
+        include("../components/button", {
+          label: publisher.draft,
+          name: "drafter",
+          id: "drafter",
+          value: id,
+          form: `form-${type}`,
+          classname: "grow",
+          attributes: [
+            "data-status=draft",
+            "type=button",
+          ],
+          variation: "outline",
+        })
+      %>
+    <% } %>
     <%-
       include("../components/button", {
-        label: "Draft",
-        name: "drafter",
-        id: "drafter",
-        value: id,
-        form: `form-${type}`,
-        classname: "grow",
-        attributes: [
-          "data-status=draft",
-          "type=button",
-        ],
-        variation: "outline",
-      })
-    %>
-    <%-
-      include("../components/button", {
-        label: id === "create" || data.status === "draft" ? "Publish" : "Update",
+        label: publisher.publish,
         name: "publisher",
         id: "publisher",
         value: id,
