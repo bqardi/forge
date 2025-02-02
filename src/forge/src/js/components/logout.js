@@ -1,10 +1,10 @@
 (function () {
   const logoutButton = document.querySelector("[data-logout-button]");
   if (!logoutButton) return;
-  logoutButton.addEventListener("click", activateTheme);
+  logoutButton.addEventListener("click", logoutHandler);
 })();
 
-async function activateTheme(e) {
+async function logoutHandler(e) {
   e.preventDefault();
 
   const response = await fetch("/api/logout", {
