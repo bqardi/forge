@@ -2,6 +2,7 @@ import express from "express";
 import forge from "./routes/forge.js";
 import login from "./routes/login.js";
 import api from "./routes/api.js";
+import uploads from "./routes/uploads.js";
 import frontendPages from "./routes/frontend.js";
 import cookieParser from "cookie-parser";
 import expressLayouts from "express-ejs-layouts";
@@ -56,6 +57,7 @@ export async function initializeApp() {
   await hook.action(event.afterAssetRegister, app);
   app.use("/login", login);
   app.use("/api", api);
+  app.use("/uploads", uploads);
   await hook.action(event.afterRouteBackend);
 
   await hook.action(event.beforeRouteFrontend);

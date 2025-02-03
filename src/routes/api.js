@@ -17,6 +17,8 @@ import {
 } from "../controllers/api/pageController.js";
 import { themeToggleController } from "../controllers/api/themeController.js";
 import { logoutController } from "../controllers/api/logoutController.js";
+import { mediaUploadController } from "../controllers/api/mediaController.js";
+import { multerUpload } from "../middlewares/multerUpload.js";
 
 const router = express.Router();
 
@@ -31,5 +33,6 @@ router.post("/page", authenticateToken, createPageController);
 router.put("/page", authenticateToken, updatePageController);
 router.delete("/page/:id", authenticateToken, deletePageController);
 router.post("/activate-theme", authenticateToken, themeToggleController);
+router.post("/media", authenticateToken, multerUpload, mediaUploadController);
 
 export default router;

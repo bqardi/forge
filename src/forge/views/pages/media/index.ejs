@@ -2,3 +2,15 @@
   <h1 class="page-title">Media</h1>
   <p>This is the media <%= layoutType %></p>
 </div>
+
+<form
+  action="/api/media"
+  method="post"
+  enctype="multipart/form-data"
+  class="border border-gray-300 p-3.5 rounded-md"
+  data-form-upload
+>
+  <label for="file-upload" class="inline-block bg-amber-700 hover:bg-amber-800 text-white py-2 px-5 rounded-md cursor-pointer">Choose file...</label>
+  <input class="" id="file-upload" type="file" name="avatar" />
+  <button type="submit">Submit</button>
+</form>

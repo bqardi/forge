@@ -25,4 +25,11 @@ export const config = {
     const themeName = await getCurrentThemeName();
     return path.join(config.THEMES_PATH, themeName, ...folders);
   },
+  GET_UPLOADS_PATH: (...folders) =>
+    path.join(src, "public", "uploads", ...folders),
+  GET_UPLOADS_URL: (...folders) => {
+    const url = new URL(BASE_URL);
+    url.pathname = path.join(url.pathname, "uploads", ...folders);
+    return url.href;
+  },
 };
