@@ -10,11 +10,10 @@ const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const src = path.join(__dirname, "..");
 
 const BASE_URL = new URL(process.env.BASE_URL || "http://localhost:3000");
-const THEMES_URL = new URL("themes", BASE_URL);
 
 export const config = {
   BASE_URL,
-  THEMES_URL,
+  THEMES_URL: new URL("themes", BASE_URL),
   THEMES_PATH: path.join(src, "public", "themes"),
   GET_URL: (...subpages) => {
     const url = new URL(BASE_URL);

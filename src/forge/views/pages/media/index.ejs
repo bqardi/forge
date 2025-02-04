@@ -5,7 +5,7 @@
     <p>This is the media</p>
   </div>
   <form
-    action="/api/media"
+    action="/api/upload"
     method="post"
     enctype="multipart/form-data"
     class=""
@@ -16,16 +16,15 @@
   </form>
 </div>
 
-<div>
+<div data-file-container>
   <h2 class="text-xl font-bold"><%= data.title %></h2>
   <ul class="grid grid-cols-6 gap-3.5">
     <% data.fileList.forEach((file) => { %>
       <li class="group rounded-md overflow-hidden">
         <button
           class="cursor-pointer w-full h-full flex items-center justify-between"
-          data-media-name="<%= file.name %>"
-          data-media-size="<%= file.size %>"
-          data-media-mime="<%= file.mimeType %>"
+          data-dialog-trigger="<%= formID %>"
+          data-filename="<%= file.name %>"
         >
           <% if (file.type === 'image') { %>
             <img class="group-hover:scale-105 transition-transform aspect-square w-full h-full object-cover" src="<%= file.url %>" alt="<%= file.name %>">
@@ -42,3 +41,18 @@
     <% }) %>
   </ul>
 </div>
+
+<template data-template="dialog-content-file-details">
+  <div class="p-8 grid gap-8 grid-cols-1 md:grid-cols-[1fr_2.5fr]">
+    <img src="" alt="Preview" class="w-full h-auto object-cover mb-8" data-preview />
+    <div>
+      <p class="text-sm text-zinc-600" data-name>Filename</p>
+      <p class="text-sm text-zinc-600" data-type>MimeType</p>
+      <p class="text-sm text-zinc-600" data-size>Size</p>
+      <p class="text-sm text-zinc-600">
+        URL:
+        <a href="" target="_blank" class="link" data-url>URL: <span data-url>url</span></a>
+      </p>
+    </div>
+  </div>
+</template>

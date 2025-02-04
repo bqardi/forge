@@ -11,6 +11,7 @@ import "./components/forms/page.js";
 import "./components/forms/user.js";
 import "./components/forms/validation.js";
 import "./components/forms/file-upload.js";
+import "./components/forms/media.js";
 import { registerDuplicateIDs } from "./utilities.js";
 
 registerDuplicateIDs();

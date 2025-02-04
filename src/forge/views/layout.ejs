@@ -37,32 +37,22 @@
             id: "toast",
           })
         %>
-        
-        <%-
-          // TODO: Implement dialog component (trigger)
-          // include('../components/icon-button',{
-          //   icon: "settings",
-          //   label: "Settings",
-          //   classname: "hover:bg-zinc-200",
-          //   attributes: [
-          //     `data-dialog-trigger=${formID}`,
-          //   ],
-          // })
-        %>
 
-        <%-
-          // TODO: Implement dialog component (modal)
-          // include('./components/dialog', {
-          //   id: formID,
-          //   title: "Page Settings",
-          //   component: {
-          //     partial: "page",
-          //     props: {
-          //       ...data,
-          //     },
-          //   },
-          // })
-        %>
+        <% if (locals.component) { %>
+          <% const { title, partial } = component; %>
+          <%-
+            include('./components/dialog', {
+              id: formID,
+              title,
+              component: {
+                partial,
+                props: {
+                  fileList: data.fileList || [],
+                },
+              },
+            })
+          %>
+        <% } %>
       </div>
     </div>
     <% } %>

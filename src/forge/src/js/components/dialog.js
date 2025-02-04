@@ -1,3 +1,5 @@
+import { broadcaster } from "./broadcaster.js";
+
 (function () {
   const dialogTriggers = document.querySelectorAll("[data-dialog-trigger]");
   dialogTriggers.forEach((trigger) => {
@@ -17,6 +19,10 @@ function openDialog(e) {
   );
   if (!dialog) return;
   dialog.showModal();
+  broadcaster.emit("dialog-open", {
+    trigger: e.currentTarget,
+    dialog,
+  });
 }
 
 function closeDialog(e) {

@@ -78,3 +78,22 @@ export function getViolator(violations) {
     attribute,
   };
 }
+
+export function getTemplateContent(name) {
+  const template = document.querySelector(`[data-template="${name}"]`);
+  return template.content.cloneNode(true);
+}
+
+export function calculateFileSize(size) {
+  const units = ["bytes", "kilobytes", "megabytes", "gigabytes", "terabytes"];
+  let unitIndex = 0;
+
+  while (size >= 1024 && unitIndex < units.length - 1) {
+    size /= 1024;
+    unitIndex++;
+  }
+
+  const decimalCount = unitIndex === 0 ? 0 : 2;
+
+  return `${size.toFixed(decimalCount)} ${units[unitIndex]}`;
+}
