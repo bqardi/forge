@@ -3,5 +3,23 @@
   "version": "1.0.0",
   "description": "A simple theme for Lala",
   "author": "Lala",
-  "entry": "functions.js"
+  "entry": "functions.js",
+  "default": "index.ejs",
+  "views": [
+    {
+      "key": "frontpage",
+      "label": "Frontpage",
+      "filename": "frontpage.ejs"
+    },
+    {
+      "key": "page",
+      "label": "Page",
+      "filename": "page.ejs"
+    },
+    {
+      "key": "something",
+      "label": "Something",
+      "filename": "something.ejs"
+    }
+  ]
 }

@@ -14,7 +14,18 @@ export async function frontpageController(req, res) {
     return res.status(404).send("Page not found");
   }
 
-  const renderPath = path.join(theme.path, "views", "index.ejs");
+  const { status, type } = page.dataValues;
+
+  if (status !== "published") {
+    return res.status(404).send("Page not found");
+  }
+
+  const found = theme.views.find((view) => view.key === type);
+  const renderPath = path.join(
+    theme.path,
+    "views",
+    found.filename ?? theme.config.default
+  );
   const themeLayout = path.join(theme.path, "views", "layout.ejs");
 
   await hook.action(event.onRouteFrontend, "frontpage", page.dataValues);
@@ -37,11 +48,18 @@ export async function pageController(req, res) {
     return res.status(404).send("Page not found");
   }
 
-  if (page.dataValues.status !== "published") {
+  const { status, type } = page.dataValues;
+
+  if (status !== "published") {
     return res.status(404).send("Page not found");
   }
 
-  const renderPath = path.join(theme.path, "views", "page.ejs");
+  const filename =
+    type === "default"
+      ? theme.config.default
+      : theme.views.find((view) => view.key === type).filename;
+
+  const renderPath = path.join(theme.path, "views", filename);
   if (!renderPath) {
     return res.status(404).send("Template not found");
   }

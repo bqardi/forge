@@ -1,6 +1,7 @@
 import { getPage, getPages } from "../../services/page.js";
 import { event, hook } from "../../utils/hookManager/index.js";
 import { firstCharacterToUppercase } from "../../utils/stringHandler.js";
+import { getCurrentThemeConfig } from "../../utils/themeHandler.js";
 
 export async function pagesController(req, res) {
   const allPages = await getPages();
@@ -29,10 +30,14 @@ export async function pagesController(req, res) {
 export async function pageController(req, res) {
   const reqID = req.params.id;
 
-  // TODO: Fetch page types from database
+  const themeConfig = await getCurrentThemeConfig();
+
   const types = [
     { key: "default", value: "Default" },
-    { key: "frontpage", value: "Frontpage" },
+    ...themeConfig.views.map((view) => ({
+      key: view.key,
+      value: view.label,
+    })),
   ];
 
   let data = {

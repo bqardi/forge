@@ -16,7 +16,11 @@ export async function getCurrentThemeName() {
   return activeTheme.value;
 }
 
-export async function getCurrentThemeConfig(themeName) {
+export async function getCurrentThemeConfig(themeName = null) {
+  if (themeName === null) {
+    themeName = await getCurrentThemeName();
+  }
+
   if (themeName === null) {
     console.error("No theme name provided!");
     return null;
