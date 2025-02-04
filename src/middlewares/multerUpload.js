@@ -17,7 +17,7 @@ const storage = multer.diskStorage({
 const upload = multer({ storage });
 
 export function multerUpload(req, res, next) {
-  upload.single("avatar")(req, res, (err) => {
+  upload.single("upload")(req, res, (err) => {
     if (err) {
       console.error("Failed to upload media:", err);
       res.status(500).json({ message: "Internal server error" });

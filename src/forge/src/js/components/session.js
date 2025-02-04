@@ -7,8 +7,6 @@ import { broadcaster } from "./broadcaster.js";
   const message = input.value;
   const type = input.dataset.type;
 
-  console.log(type);
-
   const mapping = {
     success: "Success",
     error: "Error",
