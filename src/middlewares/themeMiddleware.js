@@ -13,7 +13,7 @@ export async function themeMiddleware(req, res, next) {
 
   if (activeTheme) {
     themePath = path.join(config.THEMES_PATH, activeTheme);
-    views = themeConfig.views;
+    if (themeConfig !== null) views = themeConfig.views ?? [];
   }
 
   req.theme = {

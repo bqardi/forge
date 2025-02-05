@@ -54,10 +54,18 @@ export async function pageController(req, res) {
     return res.status(404).send("Page not found");
   }
 
-  const filename =
-    type === "default"
-      ? theme.config.default
-      : theme.views.find((view) => view.key === type).filename;
+  let filename;
+
+  if (type === "default") {
+    filename = theme.config.default;
+  } else {
+    const view = theme.views.find((view) => view.key === type);
+    filename = view ? view.filename : theme.config.default;
+  }
+
+  if (fs.existsSync(path.join(theme.path, "views", filename)) === false) {
+    filename = theme.config.default;
+  }
 
   const renderPath = path.join(theme.path, "views", filename);
   if (!renderPath) {

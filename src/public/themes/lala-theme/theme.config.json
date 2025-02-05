@@ -4,7 +4,6 @@
   "description": "A simple theme for Lala",
   "author": "Lala",
   "entry": "functions.js",
-  "default": "index.ejs",
   "views": [
     {
       "key": "frontpage",

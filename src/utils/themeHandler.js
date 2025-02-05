@@ -48,10 +48,12 @@ export async function getCurrentThemeConfig(themeName = null) {
     return null;
   }
 
-  const entryFile = path.join(themeDir, data.entry);
+  if (!data.default) {
+    data.default = "index.ejs";
+  }
 
-  if (!fs.existsSync(entryFile)) {
-    console.error("Entry file required, but not found!");
+  if (!fs.existsSync(path.join(themeDir, "views", data.default))) {
+    console.error("Default view file not found!");
     return null;
   }
 
@@ -91,8 +93,15 @@ export async function initializeTheme(theme) {
   const themeConfig = await getCurrentThemeConfig(theme);
   if (!themeConfig) return;
 
-  const themeEntry = path.join(config.THEMES_PATH, theme, themeConfig.entry);
+  const themeEntry = path.join(
+    config.THEMES_PATH,
+    theme,
+    themeConfig.entry ?? "index.js"
+  );
   const themeEntryUrl = pathToFileURL(themeEntry).href;
+
+  // Silent return if entry file does not exist
+  if (!fs.existsSync(themeEntry)) return;
 
   await import(themeEntryUrl);
 }
