@@ -1,28 +1,26 @@
 import { assetManager } from "../../../utils/assetManager/assetManager.js";
-import { config } from "../../../utils/global.js";
 import { event, hook } from "../../../utils/hookManager/index.js";
 
 hook.register(
   event.beforeAssetRegister,
   async () => {
-    const themeCSSPath = await config.GET_THEME_PATH("style.css");
-    const themeJSPath = await config.GET_THEME_PATH("script.js");
-    assetManager.register({
+    await assetManager.register({
       url: "/style.css",
-      filePath: themeCSSPath,
+      filePath: "assets/style.css",
     });
-    assetManager.register({
+    await assetManager.register({
       url: "/script.js",
-      filePath: themeJSPath,
+      filePath: "assets/script.js",
     });
   },
   10
 );
 
-// hook.register(
-//   event.onRouteFrontend,
-//   async (event, page) => {
-//     console.log({ event, page, message: "On Route Frontend by USER" });
-//   },
-//   10
-// );
+hook.register(
+  event.onRouteFrontend,
+  async (event, page) => {
+    if (page)
+      console.log({ event, page, message: "On Route Frontend by USER" });
+  },
+  10
+);

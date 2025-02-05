@@ -1,4 +1,5 @@
 import path from "path";
+import { config } from "../global.js";
 
 class AssetManager {
   #assets;
@@ -11,8 +12,12 @@ class AssetManager {
     return this.#assets;
   }
 
-  register(asset) {
-    this.#assets.push(asset);
+  async register(asset) {
+    const themePath = await config.GET_THEME_PATH(...asset.filePath.split("/"));
+    this.#assets.push({
+      url: asset.url,
+      filePath: themePath,
+    });
   }
 
   generateRoutes(app) {
