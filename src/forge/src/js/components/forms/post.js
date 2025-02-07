@@ -1,5 +1,3 @@
-import { responseNotifier } from "../../utilities.js";
-
 (function () {
   const post = document.querySelector("[data-post]");
   if (!post) return;
@@ -32,8 +30,8 @@ async function handleDeleteClick(e, form) {
     method,
   });
 
-  const ok = await responseNotifier(response);
-  if (ok) {
+  const { message } = await response.json();
+  if (message) {
     window.location.href = "/forge/posts";
   }
 }
@@ -61,8 +59,8 @@ async function handleSubmit(e) {
     body: JSON.stringify(json),
   });
 
-  const ok = await responseNotifier(response);
-  if (ok) {
+  const { message } = await response.json();
+  if (message) {
     window.location.href = "/forge/posts";
   }
 }

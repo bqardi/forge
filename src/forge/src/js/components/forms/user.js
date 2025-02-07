@@ -1,5 +1,3 @@
-import { responseNotifier } from "../../utilities.js";
-
 (function () {
   const user = document.querySelector("[data-user]");
   if (!user) return;
@@ -25,8 +23,8 @@ async function handleDeleteClick(e, form) {
     method,
   });
 
-  const ok = await responseNotifier(response);
-  if (ok) {
+  const { message } = await response.json();
+  if (message) {
     window.location.href = "/forge/users";
   }
 }
@@ -54,8 +52,8 @@ async function handleSubmit(e) {
     body: JSON.stringify(json),
   });
 
-  const ok = await responseNotifier(response);
-  if (ok) {
+  const { message } = await response.json();
+  if (message) {
     window.location.href = "/forge/users";
   }
 }
