@@ -11,6 +11,7 @@ import { filemap } from "./middlewares/filemap.js";
 import { setLocals } from "./middlewares/setLocals.js";
 import { noCache } from "./middlewares/cacheControl.js";
 import { setBaseUrl } from "./middlewares/setBaseUrl.js";
+import { createClient } from "redis";
 import { RedisStore } from "connect-redis";
 import session from "express-session";
 import path from "path";
