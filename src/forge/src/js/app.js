@@ -1,3 +1,6 @@
+// FIRST_TIME_SETUP_DELETE_WHEN_DONE__FROM
+import "./components/firstTimeSetup.js";
+// FIRST_TIME_SETUP_DELETE_WHEN_DONE__TO
 import "./components/login.js";
 import "./components/logout.js";
 import "./components/themes.js";

@@ -1,0 +1,60 @@
+<div class="grid place-content-center h-screen">
+  <h1 class="text-4xl font-semibold mb-2"><%= title %></h1>
+  <p class="text-lg mb-8"><%= content %></p>
+  <form class="flex flex-col gap-8 min-w-[260px]" autocomplete="off" data-forge-setup-form>
+    <%-
+      include("./components/form/input", {
+        label: "Enter username",
+        type: "text",
+        id: "username",
+        name: "username",
+        attributes: [
+          "placeholder=Username",
+          "required",
+          `data-required="Username is required"`,
+          "autofocus",
+          "autocomplete=new-username",
+        ],
+      })
+    %>
+    <%-
+      include("./components/form/input", {
+        label: "Enter email",
+        type: "email",
+        id: "email",
+        name: "email",
+        attributes: [
+          "placeholder=Email",
+          "required",
+          `data-required="Email is required"`,
+          "autocomplete=new-email",
+        ],
+      })
+    %>
+    <%-
+      include("./components/form/input-password", {
+        label: "Enter password",
+        id: "password",
+        name: "password",
+        attributes: [
+          "placeholder=Password",
+          "required",
+          `data-required="Password is required"`,
+          "autocomplete=new-password",
+        ],
+      })
+    %>
+    <%-
+      include("./components/button", {
+        type: "submit",
+        label: "Create new user",
+      })
+    %>
+  </form>
+</div>
+
+<%-
+  include('./components/toast', {
+    id: "login-toast",
+  })
+%>

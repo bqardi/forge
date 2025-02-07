@@ -2,35 +2,21 @@ import "./utils/global.js";
 import sequelize from "./config/database.js";
 import { initializeApp } from "./app.js";
 import { event, hook } from "./utils/hookManager/index.js";
-import { databaseExists } from "./utils/scripts/firstTimeSetup.js";
-import { addUser } from "./utils/scripts/addUser.js";
 import { getCurrentThemeName, initializeTheme } from "./utils/themeHandler.js";
 
 (async function () {
-  const dbExists = databaseExists();
-
   await hook.action(event.beforeSystemInit);
 
   try {
     await sequelize.sync();
     await hook.action(event.onSystemInit, "database");
 
-    // TODO: Replace this with a more user friendly setup process
-    if (!dbExists) {
-      console.log("\nFirst time setup detected!\n");
-      await addUser({
-        username: "ss",
-        password: "asdf",
-        email: "test@test.com",
-      });
-    }
-
     const activeTheme = await getCurrentThemeName();
     if (activeTheme) await initializeTheme(activeTheme);
 
     const app = await initializeApp();
 
-    const PORT = process.env.PORT || 10000; // render.com uses port 10000 by default
+    const PORT = process.env.PORT || 10000;
 
     app.listen(PORT, async () => {
       await hook.action(event.onSystemInit, "server");

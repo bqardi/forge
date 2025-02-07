@@ -6,6 +6,10 @@ import uploads from "./routes/uploads.js";
 import frontendPages from "./routes/frontend.js";
 import cookieParser from "cookie-parser";
 import expressLayouts from "express-ejs-layouts";
+// FIRST_TIME_SETUP_DELETE_WHEN_DONE__FROM
+import setup from "./routes/firstTimeSetup.js";
+import { firstTimeSetup } from "./middlewares/firstTimeSetup.js";
+// FIRST_TIME_SETUP_DELETE_WHEN_DONE__TO
 import { event, hook } from "./utils/hookManager/index.js";
 import { filemap } from "./middlewares/filemap.js";
 import { setLocals } from "./middlewares/setLocals.js";
@@ -69,7 +73,11 @@ export async function initializeApp() {
   // Cache control
   app.use("/login", noCache);
   app.use("/forge", noCache);
-
+  // FIRST_TIME_SETUP_DELETE_WHEN_DONE__FROM
+  app.use(firstTimeSetup);
+  app.use("/first-time-setup", noCache);
+  app.use("/first-time-setup", setup);
+  // FIRST_TIME_SETUP_DELETE_WHEN_DONE__TO
   // Routes
   await hook.action(event.beforeRouteBackend);
   await hook.action(event.beforeAssetRegister);

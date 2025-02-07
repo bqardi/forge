@@ -7,7 +7,7 @@
     <link rel="stylesheet" href="/forge/assets/css/style.css" />
   </head>
   <body>
-    <% if (layoutType === "login") { %>
+    <% if (layoutType === "login" || layoutType === "first-time-setup") { %>
     <%- body %>
     <% } else { %>
     <div class="grid grid-cols-[240px_1fr] grid-rows-[64px_1fr] h-screen">

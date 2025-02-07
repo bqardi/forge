@@ -1,5 +1,6 @@
 node_modules
 .env.local
-src/config/database.sqlite
+src-backup
+src/config/*.sqlite
 src/forge/assets/css/*
 src/forge/assets/js/*
