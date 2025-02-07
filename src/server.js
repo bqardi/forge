@@ -33,9 +33,13 @@ import { getCurrentThemeName, initializeTheme } from "./utils/themeHandler.js";
     const PORT = process.env.SERVER_PORT || 3210;
 
     app.listen(PORT, async () => {
-      console.log(`\nServer is running on localhost:${PORT}`);
-      console.log("Open in browser at http://localhost:3000 (proxied)");
       await hook.action(event.onSystemInit, "server");
+      if (process.env.NODE_ENV === "development") {
+        console.log(`Server is running on http://localhost:${PORT}`);
+        console.log(`Open in browser at http://localhost:3000 (proxied)`);
+      } else {
+        console.log(`Server is running on http://localhost:${PORT}`);
+      }
     });
 
     await hook.action(event.afterSystemInit);

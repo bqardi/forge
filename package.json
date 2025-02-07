@@ -10,8 +10,9 @@
     "db:adduser": "node src/utils/scripts/addUser.js",
     "db:deleteuser": "node src/utils/scripts/deleteUser.js",
     "sequelize:add": "node scripts/sequelize-add-datatype.js",
-    "start": "node src/server.js",
-    "build": "npm --prefix src/forge run build"
+    "start": "npm run build && node src/server.js",
+    "build": "npm --prefix src/forge run build",
+    "inst": "npm i && npm --prefix ./src/forge install"
   },
   "keywords": [],
   "author": "",
