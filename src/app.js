@@ -11,11 +11,22 @@ import { filemap } from "./middlewares/filemap.js";
 import { setLocals } from "./middlewares/setLocals.js";
 import { noCache } from "./middlewares/cacheControl.js";
 import { setBaseUrl } from "./middlewares/setBaseUrl.js";
+import { RedisStore } from "connect-redis";
 import session from "express-session";
 import path from "path";
 import { fileURLToPath } from "url";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
+
+const redisClient =
+  process.env.NODE_ENV === "production"
+    ? createClient({
+        url: process.env.REDIS_URL,
+        legacyMode: true,
+      })
+    : undefined;
+
+redisClient?.connect().catch(console.error);
 
 export async function initializeApp() {
   const app = express();
@@ -24,6 +35,10 @@ export async function initializeApp() {
   app.use(setBaseUrl);
   app.use(
     session({
+      store:
+        process.env.NODE_ENV === "production"
+          ? new RedisStore({ client: redisClient })
+          : undefined,
       secret: process.env.SESSION_SECRET,
       resave: false,
       saveUninitialized: true,
