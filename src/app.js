@@ -21,15 +21,17 @@ const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
 const redisClient =
   process.env.NODE_ENV === "production"
-    ? createClient({
-        url: process.env.REDIS_URL,
-        legacyMode: true,
-      })
+    ? createClient(
+        process.env.REDIS_URL !== undefined
+          ? { url: process.env.REDIS_URL }
+          : undefined
+      )
     : undefined;
 
-redisClient?.connect().catch(console.error);
-
 export async function initializeApp() {
+  if (redisClient && !redisClient.isOpen)
+    await redisClient.connect().catch(console.error);
+
   const app = express();
 
   // Middlewares
