@@ -131,7 +131,7 @@ These routes are defined in the `src/routes/frontend` folder. The `pages.js` fil
 The src/middleware folder contains middleware functions that are used to process requests before they reach the route handlers. Middleware functions can perform various tasks such as logging, authentication, and setting local variables.
 
 filemap.js: Maps .html file extensions to "" for routing purposes (allows `/about` and `/about.html` to point at the same route).
-setLocals.js: Sets local variables that are available in all EJS templates (eg. `GET_URL('about')` or `THEMES_PATH`...).
+setLocals.js: Sets local variables that are available in all EJS templates (eg. `config.GET_URL('about')` or `config.THEMES_PATH`...).
 
 #### Create a new middleware function.
 

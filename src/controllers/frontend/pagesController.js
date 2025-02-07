@@ -20,11 +20,11 @@ export async function frontpageController(req, res) {
     return res.status(404).send("Page not found");
   }
 
-  const found = theme.views.find((view) => view.key === type);
+  const found = theme.views?.find((view) => view.key === type);
   const renderPath = path.join(
     theme.path,
     "views",
-    found.filename ?? theme.config.default
+    found?.filename ?? theme.config.default
   );
   const themeLayout = path.join(theme.path, "views", "layout.ejs");
 
@@ -59,7 +59,7 @@ export async function pageController(req, res) {
   if (type === "default") {
     filename = theme.config.default;
   } else {
-    const view = theme.views.find((view) => view.key === type);
+    const view = theme.views?.find((view) => view.key === type);
     filename = view ? view.filename : theme.config.default;
   }
 

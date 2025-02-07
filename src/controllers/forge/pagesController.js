@@ -34,10 +34,10 @@ export async function pageController(req, res) {
 
   const types = [
     { key: "default", value: "Default" },
-    ...themeConfig.views.map((view) => ({
+    ...(themeConfig.views?.map((view) => ({
       key: view.key,
       value: view.label,
-    })),
+    })) ?? []),
   ];
 
   let data = {

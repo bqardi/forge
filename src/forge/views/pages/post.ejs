@@ -1,6 +1,6 @@
 <%
   const createdAt = new Date(data.createdAt).toLocaleDateString();
-  const slugURL = data.slug && GET_URL(data.slug);
+  const slugURL = data.slug && config.GET_URL(data.slug);
 %>
 
 <div data-post>
@@ -13,7 +13,7 @@
           class="link"
           href="<%- slugURL %>"
           target="_blank"
-          data-base-url="<%= GET_URL('/') %>"
+          data-base-url="<%= config.GET_URL('/') %>"
         ><%- slugURL %></a>
       </p>
     </div>
