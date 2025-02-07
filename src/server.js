@@ -30,7 +30,7 @@ import { getCurrentThemeName, initializeTheme } from "./utils/themeHandler.js";
 
     const app = await initializeApp();
 
-    const PORT = process.env.SERVER_PORT || 3210;
+    const PORT = process.env.PORT || 10000; // render.com uses port 10000 by default
 
     app.listen(PORT, async () => {
       await hook.action(event.onSystemInit, "server");
