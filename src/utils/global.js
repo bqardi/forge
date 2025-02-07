@@ -9,7 +9,7 @@ dotenv.config({
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const src = path.join(__dirname, "..");
 
-export function setGlobalBaseUrl(baseUrl) {
+export function setGlobals(baseUrl) {
   config.BASE_URL = baseUrl;
   config.THEMES_URL = new URL("themes", config.BASE_URL);
   config.GET_URL = (...subpages) => {
@@ -22,18 +22,24 @@ export function setGlobalBaseUrl(baseUrl) {
     url.pathname = path.join(url.pathname, "uploads", ...folders);
     return url.href;
   };
+  return config;
 }
 
 export const config = {
+  // URLs
   BASE_URL: null,
   THEMES_URL: null,
+  // Paths
   THEMES_PATH: path.join(src, "public", "themes"),
+  // Functions URLs
   GET_URL: null,
+  GET_UPLOADS_URL: null,
+  // Functions Paths
+  GET_PATH: (...folders) => path.join(src, ...folders),
   GET_THEME_PATH: async (...folders) => {
     const themeName = await getCurrentThemeName();
     return path.join(config.THEMES_PATH, themeName, ...folders);
   },
   GET_UPLOADS_PATH: (...folders) =>
     path.join(src, "public", "uploads", ...folders),
-  GET_UPLOADS_URL: null,
 };
