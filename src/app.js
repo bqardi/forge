@@ -10,6 +10,7 @@ import { event, hook } from "./utils/hookManager/index.js";
 import { filemap } from "./middlewares/filemap.js";
 import { setLocals } from "./middlewares/setLocals.js";
 import { noCache } from "./middlewares/cacheControl.js";
+import { setBaseUrl } from "./middlewares/setBaseUrl.js";
 import session from "express-session";
 import path from "path";
 import { fileURLToPath } from "url";
@@ -20,6 +21,7 @@ export async function initializeApp() {
   const app = express();
 
   // Middlewares
+  app.use(setBaseUrl);
   app.use(
     session({
       secret: process.env.SESSION_SECRET,

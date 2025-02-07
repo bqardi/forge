@@ -38,7 +38,7 @@ import { getCurrentThemeName, initializeTheme } from "./utils/themeHandler.js";
         console.log(`Server is running on http://localhost:${PORT}`);
         console.log(`Open in browser at http://localhost:3000 (proxied)`);
       } else {
-        console.log(`Server is running on http://localhost:${PORT}`);
+        console.log(`Server is running on port ${PORT}`);
       }
     });
 
